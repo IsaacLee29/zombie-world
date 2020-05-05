@@ -61,4 +61,7 @@ public class Player extends Actor {
 			return null;
 		}
 	}
+	
+	@Override
+	public String loseLimbs(GameMap map) { return null; }
 }

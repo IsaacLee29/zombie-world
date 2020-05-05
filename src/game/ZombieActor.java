@@ -24,4 +24,7 @@ public abstract class ZombieActor extends Actor {
 			list.add(new AttackAction(this));
 		return list;
 	}
+	
+	@Override
+	public String loseLimbs(GameMap map) { return null; }
 }

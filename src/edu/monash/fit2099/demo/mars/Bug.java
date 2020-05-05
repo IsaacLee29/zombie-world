@@ -37,4 +37,7 @@ public class Bug extends Actor {
 	protected IntrinsicWeapon getIntrinsicWeapon() {
 		return new IntrinsicWeapon(1, "stings");
 	}
+	
+	@Override
+	public String loseLimbs(GameMap map) { return null; }
 }
