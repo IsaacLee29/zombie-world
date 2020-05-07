@@ -9,26 +9,17 @@ import edu.monash.fit2099.engine.GameMap;
 public class Farmer extends Human {
 	private Behaviour [] behaviours = {
 			new FarmingBehaviour(),
-//			new HarvestBehaviour(),
+			new FertiliseBehaviour(),
+			new HarvestBehaviour(),
 			new WanderBehaviour()
 			};
 		
-	
+	// Constructor for the farmer that takes in string name.
 	public Farmer(String name) {
 		super(name, 'F', 50);
 	}
-	
+	// To get the action that the farmer can do
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		
-//		double probSowing = 0.33;
-//		int x = map.locationOf(this).x() +(int)Math.round(Math.random());
-//		int y = map.locationOf(this).x() +(int)Math.round(Math.random());
-//		
-//		if (map.at(x,y).getGround().getDisplayChar() == '.') {
-//			if (Math.random() <= probSowing ) {
-//				new Crop();
-//			}
-//		}
 		
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);

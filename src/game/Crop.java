@@ -24,5 +24,14 @@ public class Crop extends Ground{
 		}
 	}
 	
+	// When farmer fertilize the crop, its turn reduce my 10 
+	public void fertilise() {
+		age += 10;
+	}
+	// Return the age of the crop
+	public int getAge() {
+		return age;
+	}
+	
 
 }

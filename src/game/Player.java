@@ -1,9 +1,13 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Menu;
 
 /**
@@ -26,9 +30,36 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// Handle multi-turn Actions
+		int itemCounter = 0;
+		boolean retVal = false;
+		
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
+		
+		// to get the index of the food item 
+		for(Item item: this.getInventory()) {
+			if (item.getClass() == Food.class ) {
+				retVal = true;
+				break;
+			}
+			itemCounter += 1;
+		}
+		// if there's a food in the inventory the player can choose to consume it
+		if (retVal) {
+			Food food = (Food) this.getInventory().get(itemCounter);
+			actions.add(new ConsumeAction(food));
+		}
+		
+		// if there's ripen crop besides the actor, the actor can choose to harvest the crop
+		for(Exit exits : map.locationOf(this).getExits()) {
+			if (exits.getDestination().getGround().getClass() == Crop.class) {
+				Crop crops = (Crop) exits.getDestination().getGround();
+				if (crops.getAge() >= 20) {
+					actions.add(new HarvestAction(exits.getDestination()));
+				}
+			}
+		}
+		
 		return menu.showMenu(this, actions, display);
 	}
 }

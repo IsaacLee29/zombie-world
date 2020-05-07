@@ -10,12 +10,8 @@ import edu.monash.fit2099.engine.Location;
 
 public class FarmingBehaviour implements Behaviour {
 	
-	public FarmingBehaviour() {
-		
-	}
-	
+	// to get the action of sowAction if there's dirt beside the farmer
 	public Action getAction(Actor actor, GameMap map) {
-		ArrayList<Action> actions = new ArrayList<>();
 		
 		for (Exit exit: map.locationOf(actor).getExits()) {
 			Location destination = exit.getDestination();
