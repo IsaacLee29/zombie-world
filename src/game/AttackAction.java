@@ -38,6 +38,7 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 
+		// 	RE-CHECK THIS AGAIN, TRY TO REMOVE LITERAL
 		if (weapon.verb().equalsIgnoreCase("bites")) {
 			if (Zombie.missBite(rand.nextDouble())) {
 				return missesTarget(actor); }
@@ -45,7 +46,7 @@ public class AttackAction extends Action {
 				actor.heal(5);  // got time only add new class
 			}
 		} else {
-			if (rand.nextDouble() < 0) {//rand.nextBoolean()) {
+			if (rand.nextBoolean()) {  // rand.nextBoolean()
 				return missesTarget(actor);
 			}
 		}
@@ -56,7 +57,7 @@ public class AttackAction extends Action {
 		target.hurt(damage);
 		String lostLimb = knockOffLimb(map);
 		if (lostLimb != null) {
-			result += System.lineSeparator() + target + lostLimb;
+			result += System.lineSeparator() + target + " " + lostLimb;
 		}
 
 
@@ -93,10 +94,6 @@ public class AttackAction extends Action {
 	}
 
 	private String knockOffLimb(GameMap map) {
-		String retVal = null;
-		if (rand.nextDouble() <= 1.0) {
-			 retVal = target.loseLimbs(map);
-		}
-		return retVal;
+		return target.loseLimbs(map);
 	}
 }

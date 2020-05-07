@@ -22,18 +22,6 @@ public class Limbs {
     }
 
     // Reason why setArm and setLeg is private to ensure no one else can add Arms or Legs except Limbs
-    public int totalNumberOfLimbs() {
-        return allLimbs.size();
-    }
-
-    public int numberOfArms() {
-        return arms.size();
-    }
-
-    public int numberOfLegs() {
-        return legs.size();
-    }
-
     private void setArms(int numOfArms) {
         for (int i = 0; i < numOfArms; i++) {
             Limb newArm = new Arm();
@@ -50,31 +38,34 @@ public class Limbs {
         }
     }
 
+
+    public int totalNumberOfLimbs() {
+        return allLimbs.size();
+    }
+
+    public int numberOfArms() {
+        return arms.size();
+    }
+
+    public int numberOfLegs() {
+        return legs.size();
+    }
+
+
     public boolean hasArms() {
-        return arms.size() > 0;
+        return numberOfArms() > 0;
     }
 
     public boolean hasLegs() {
-        return legs.size() > 0;
+        return numberOfLegs() > 0;
     }
 
     public boolean hasNoLimbs() {
-        return allLimbs.size() == 0;
+        return totalNumberOfLimbs() == 0;
     }
 
-    public String removeArm(int i) {
-        arms.remove(allLimbs.get(i));
-        allLimbs.remove(i);
-        return Arm.ARM_DESCRIPTION;
-    }
 
-    public String removeLeg(int i) {
-        legs.remove(allLimbs.get(i));
-        allLimbs.remove(i);
-        return Leg.LEG_DESCRIPTION;
-    }
-
-    String removeLimb(int i) {
+    public Limb removeLimb(int i) {
         Limb limbToRemove = allLimbs.get(i);
         if (limbToRemove instanceof Arm && hasArms()) {
             removeArm(i);
@@ -82,12 +73,25 @@ public class Limbs {
         else if (hasLegs()){
             removeLeg(i);
         }
-        return limbToRemove.toString();
+        return limbToRemove;
     }
 
-    public boolean isAnArm(String description) {
-        return description.equalsIgnoreCase(Arm.ARM_DESCRIPTION);
+    public Limb removeArm(int i) {
+        Limb temp = allLimbs.get(i);
+        arms.remove(temp);
+        allLimbs.remove(i);
+        return temp;
+    }
+
+    public Limb removeLeg(int i) {
+        Limb temp = allLimbs.get(i);
+        legs.remove(temp);
+        allLimbs.remove(i);
+        return temp;
     }
 
 
+    public String toString() {
+        return numberOfArms() + " arms & " + numberOfLegs() + " legs.";
+    }
 }

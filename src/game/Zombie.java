@@ -2,6 +2,8 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
+
 /**
  * A Zombie.
  * 
@@ -12,11 +14,18 @@ import edu.monash.fit2099.engine.*;
  */
 public class Zombie extends ZombieActor {
 
+	public static final double TALKING_PROBABILITY = 0.1;
+	public static final double LOSE_LIMB_PROBABILITY = 0.25;
+	public static final double DROPPING_WEAPON_PROBABILITY = 0.5;
 	public static final String[] ZOMBIE_PHRASES = {"Braaaaains", "Zombiesss", "Arghhh"};
 
-	private Limbs zombieLimb;
 	private double biteProbability = 0.5;
-	private boolean lostALegPreviously;
+
+	private Limbs zombieLimb;
+	/**
+	 * Represents the current state of mobility of this Actor
+	 */
+	private ZombieMobility mobility;
 
 	private Behaviour[] behaviours = {
 			new AttackBehaviour(ZombieCapability.ALIVE),
@@ -27,7 +36,7 @@ public class Zombie extends ZombieActor {
 	public Zombie(String name) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
 		zombieLimb = new Limbs(2, 2);
-		lostALegPreviously = false;
+		mobility = ZombieMobility.HAS_ALL_LEGS;
 	}
 
 	@Override
@@ -51,11 +60,11 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 
-		pickUpWeapon(actions, map);  // Zombie picks up a WeaponItem
+		pickUpWeapon(map, display);  // Zombie picks up a WeaponItem
 		zombieTalking(display);  // Zombie uttering words
 
 		if (skipTurn()) {
-			lostALegPreviously = false;
+			mobility.setLostLimbPreviously(false);
 			return new DoNothingAction();
 		}
 
@@ -72,19 +81,13 @@ public class Zombie extends ZombieActor {
 	 * If there is a Weapon at this Zombie's location, it will pick it up.
 	 * Zombie will only pick up the first Weapon it sees.
 	 *
-	 * @param actions list of possible Actions
 	 * @param map the map where the current Zombie is
 	 */
-	private void pickUpWeapon(Actions actions, GameMap map) {
-		// RE-CHECK THIS METHOD AGAIN, CUZ THIS MEANS THAT IT'LL PICKUP ANYTHING IT SEES,
-		// EVEN IF IT'S NOT A WEAPON
-		if (zombieLimb.numberOfArms() > 0) {
-			for (Action action: actions) {
-				if (action instanceof PickUpItemAction) {
-					action.execute(this, map);
-					actions.remove(action);
-					break;
-				}
+	private void pickUpWeapon(GameMap map, Display display) {
+		ArrayList<Item> itemList = new ArrayList<>(map.locationOf(this).getItems());
+		for (Item anItem: itemList) {
+			if (anItem.asWeapon() != null) {
+				display.println(anItem.getPickUpAction().execute(this, map));
 			}
 		}
 	}
@@ -95,14 +98,14 @@ public class Zombie extends ZombieActor {
 	 * @param display the Display where the Zombie's utterances will be displayed
 	 */
 	private void zombieTalking(Display display) {
-		if (Math.random() <= 0.1) {
+		if (Math.random() <= TALKING_PROBABILITY) {
 			int phrase = (int)(Math.random() * ZOMBIE_PHRASES.length);
 			display.println(this + " says " + ZOMBIE_PHRASES[phrase]);
 		}
 	}
 
 	public static boolean missBite(double probability) {
-		return probability > 0.3;
+		return probability <= 0.7;
 	}
 
 	private void halvePunchProbability() {
@@ -111,33 +114,27 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public String loseLimbs(GameMap map) {
-		String prefix = "";
-		String result = null;
-		if (!zombieLimb.hasNoLimbs() && Math.random() <= 1.0) {//0.25) {
-			result = "";
+		if (!mobility.noMoreLegs() && Math.random() <= LOSE_LIMB_PROBABILITY) {
+			ArrayList<Limb> temp = new ArrayList<>();
+			int iniNumArm = zombieLimb.numberOfArms(), iniNumLeg = zombieLimb.numberOfLegs();
 			int knockHowManyLimbs = (int)(Math.ceil(Math.random() * zombieLimb.totalNumberOfLimbs()));
 			while (knockHowManyLimbs > 0) {
-				result += prefix;
-				result += "lost " + zombieLimb.removeLimb((int)(Math.random() * zombieLimb.totalNumberOfLimbs()));
-				prefix = "\n";
+				temp.add(zombieLimb.removeLimb((int)(Math.random() * zombieLimb.totalNumberOfLimbs())));
 				knockHowManyLimbs -= 1;
 			}
+			dropLimbs(temp, map);
+			return lostWhat(map, iniNumArm, iniNumLeg);
 		}
-		return result + lostWhat(map);
+		return null;
 	}
 
-	// Drops the first
+	// Drops the first Weapon in the inventory
 	private void dropAWeapon(GameMap map) {
-		boolean hasWeapon = false;
-		int i = 0;
-		int sizeOfInventory = this.inventory.size();
-		while ((i < sizeOfInventory) && !hasWeapon) {
-			if (this.inventory.get(i).asWeapon() != null) {
-				Action action = new DropItemAction(this.inventory.get(i));
-				action.execute(this, map);
-				hasWeapon = true;
+		for (Item item: this.inventory) {
+			if (item.asWeapon() != null) {
+				item.getDropAction().execute(this, map);
+				break;
 			}
-			i += 1;
 		}
 	}
 
@@ -147,52 +144,57 @@ public class Zombie extends ZombieActor {
 			while (inventory.contains(WeaponItem.class)) {
 				dropAWeapon(map);
 			}
-		} else if (Math.random() <= 0.5){
+		} else if (Math.random() <= DROPPING_WEAPON_PROBABILITY){
 			dropAWeapon(map);
 		}
 	}
 
 	// If it loss legs, do what?
-	private void HAHAHA(int lostLegs) {
+	private void lostLegs(int lostLegs) {
 		if (lostLegs == 2) {
 			behaviours = new Behaviour[] {new AttackBehaviour(ZombieCapability.ALIVE)};
+			mobility = ZombieMobility.NO_MORE_LEGS;
 		} else {
-			lostALegPreviously = true;
+			mobility.setLostLimbPreviously(true);
+			mobility = ZombieMobility.NOT_ALL_LEGS;
 		}
 	}
 
-	// Determines what to do if it loses either an arm or a leg or both at the same time
-	private String lostWhat(GameMap map) {
-		String result = "";
-		int lostArms = zombieLimb.max_arms - zombieLimb.numberOfArms();
-		int lostLegs = zombieLimb.max_legs - zombieLimb.numberOfLegs();
-
-		if (lostArms > 0 && lostLegs == 0) {
-			halvePunchProbability();
-			droppingAWeapon(lostArms, map);
-			result = "lost " + lostArms + Arm.ARM_DESCRIPTION;
-		} else if (lostArms == 0 && lostLegs > 0) {
-			HAHAHA(lostLegs);
-			result = "lost " + lostLegs + Leg.LEG_DESCRIPTION;
-		} else {
-			halvePunchProbability();
-			droppingAWeapon(lostArms, map);
-			HAHAHA(lostLegs);
-			result = "lost " + lostArms + " " + Arm.ARM_DESCRIPTION + " and "
-					+ lostLegs + " " + Leg.LEG_DESCRIPTION;
+	// Drops the knocked off limbs to adjacent locations
+	private void dropLimbs(ArrayList<Limb> limbArrayList, GameMap map) {
+		for (Limb limb: limbArrayList) {
+			Action drop = new DropLimbAction(limb, 5, "hits");
+			drop.execute(this, map);
 		}
-		return result;
 	}
 
+	/**
+	 * The main logic of losing Limbs for a Zombie.
+	 *
+	 * @param map the map where the current Zombie is
+	 * @param numOfArm initial number of Arms this Zombie had
+	 * @param numOfLeg initial number of Legs this Zombie had
+	 * @return how many limbs were knocked off
+	 */
+	private String lostWhat(GameMap map, int numOfArm, int numOfLeg) {
+		int lostArms = numOfArm - zombieLimb.numberOfArms();
+		int lostLegs = numOfLeg - zombieLimb.numberOfLegs();
 
+		if (lostArms > 0 && lostLegs == 0) {  // if no legs were lost
+			halvePunchProbability();
+			droppingAWeapon(lostArms, map);
+		} else if (lostArms == 0 && lostLegs > 0) {  // if no arms were lost
+			lostLegs(lostLegs);
+		} else {  // if both arms and legs were lost
+			halvePunchProbability();
+			droppingAWeapon(lostArms, map);
+			lostLegs(lostLegs);
+		}
+		return String.format("lost %d limbs.", lostArms + lostLegs);
+	}
 
+	// Skips current turn
 	private boolean skipTurn() {
-		boolean retVal = false;
-		if (lostALegPreviously && zombieLimb.numberOfLegs() != zombieLimb.max_legs) {
-			retVal = true;
-		} else if (!lostALegPreviously && zombieLimb.numberOfLegs() != zombieLimb.max_legs){
-			lostALegPreviously = true;
-		}
-		return retVal;
+		return mobility.isLostLimbPreviously();
 	}
 }

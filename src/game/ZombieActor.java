@@ -3,6 +3,7 @@ package game;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.WeaponItem;
 
 /**
  * Base class for Actors in the Zombie World
@@ -24,7 +25,8 @@ public abstract class ZombieActor extends Actor {
 			list.add(new AttackAction(this));
 		return list;
 	}
-	
+
+
 	@Override
 	public String loseLimbs(GameMap map) { return null; }
 }
