@@ -88,6 +88,7 @@ public class Zombie extends ZombieActor {
 		for (Item anItem: itemList) {
 			if (anItem.asWeapon() != null) {
 				display.println(anItem.getPickUpAction().execute(this, map));
+				break;
 			}
 		}
 	}
