@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
-public class FertiliseBehaviour implements Behaviour{
+public class FertiliseBehaviour extends Action implements Behaviour{
 
 
 	@Override
@@ -15,9 +15,23 @@ public class FertiliseBehaviour implements Behaviour{
 		if (locations.getGround().getClass() == Crop.class) {
 			Crop crop = (Crop) map.locationOf(actor).getGround();
 			if (crop.getAge() < 20) {
-				return new FertiliseAction(locations);
+//				return new FertiliseAction(locations);
+				return this;
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public String execute(Actor actor, GameMap map) {
+		Crop crop = (Crop) map.locationOf(actor).getGround();
+		crop.fertilise();
+		return menuDescription(actor);
+	}
+
+	@Override
+	public String menuDescription(Actor actor) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

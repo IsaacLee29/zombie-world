@@ -19,7 +19,7 @@ public class Crop extends Ground{
 		
 		age ++ ;
 		// if the age of the crop is 20, the crop will be ripen and ready to harvest
-		if (age == 20) {
+		if (age >= 20) {
 			displayChar = 'R';
 		}
 	}

@@ -16,6 +16,9 @@ import edu.monash.fit2099.engine.Menu;
 public class Player extends Human {
 
 	private Menu menu = new Menu();
+	private Behaviour[] behaviours = {
+			new HarvestBehaviour()
+	};
 
 	/**
 	 * Constructor.
@@ -51,12 +54,19 @@ public class Player extends Human {
 		}
 		
 		// if there's ripen crop besides the actor, the actor can choose to harvest the crop
-		for(Exit exits : map.locationOf(this).getExits()) {
-			if (exits.getDestination().getGround().getClass() == Crop.class) {
-				Crop crops = (Crop) exits.getDestination().getGround();
-				if (crops.getAge() >= 20) {
-					actions.add(new HarvestAction(exits.getDestination()));
-				}
+//		for(Exit exits : map.locationOf(this).getExits()) {
+//			if (exits.getDestination().getGround().getClass() == Crop.class) {
+//				Crop crops = (Crop) exits.getDestination().getGround();
+//				if (crops.getAge() >= 20) {
+//					actions.add(new HarvestAction(exits.getDestination()));
+//				}
+//			}
+//		}
+		
+		for (Behaviour behaviour: behaviours) {
+			Action action = behaviour.getAction(this, map);
+			if (action != null) {
+				actions.add(action);
 			}
 		}
 		

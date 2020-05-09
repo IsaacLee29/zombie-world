@@ -14,8 +14,14 @@ public class ConsumeAction extends Action {
 	@Override
 	// Consume the food and heal for the amount from the food 
 	public String execute(Actor actor, GameMap map) {
-		actor.heal(food.getHealth());
-		actor.removeItemFromInventory(food);
+		if (actor.getClass() == Player.class) {
+			actor.heal(food.getHealth());
+			actor.removeItemFromInventory(food);
+		}
+		else if (actor.getClass() == Human.class) {
+			actor.heal(food.getHealth());
+			map.locationOf(actor).removeItem(food);
+		}
 		return menuDescription(actor);
 	}
 
