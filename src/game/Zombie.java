@@ -28,6 +28,7 @@ public class Zombie extends ZombieActor {
 	private ZombieMobility mobility;
 
 	private Behaviour[] behaviours = {
+			new PickUpItemBehaviour(Weapon.class),
 			new AttackBehaviour(ZombieCapability.ALIVE),
 			new HuntBehaviour(Human.class, 10),
 			new WanderBehaviour()
@@ -40,9 +41,22 @@ public class Zombie extends ZombieActor {
 	}
 
 	@Override
+	public Weapon getWeapon() {
+		Weapon weapon = super.getWeapon();
+		if (weapon.verb().equalsIgnoreCase("bites")) {
+			if (Math.random() <= 0.7) {  // If Zombie misses its bite
+				weapon = null;
+			} else {  // If Zombie successfully bite
+				this.heal(5);
+			}
+		}
+		return weapon;
+	}
+
+	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		if (Math.random() <= biteProbability) {
-			return new IntrinsicWeapon(30, "bites");
+		if (Math.random() <= biteProbability || zombieLimb.numberOfArms() <= 0) {
+			return new IntrinsicWeapon(20, "bites");
 		} else {
 			return new IntrinsicWeapon(10, "punches");
 		}
@@ -60,7 +74,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 
-		pickUpWeapon(map, display);  // Zombie picks up a WeaponItem
+//		pickUpWeapon(map, display);  // Zombie picks up a WeaponItem
 		zombieTalking(display);  // Zombie uttering words
 
 		if (skipTurn()) {

@@ -38,17 +38,8 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 
-		// 	RE-CHECK THIS AGAIN, TRY TO REMOVE LITERAL
-		if (weapon.verb().equalsIgnoreCase("bites")) {
-			if (Zombie.missBite(rand.nextDouble())) {
-				return missesTarget(actor); }
-			else {
-				actor.heal(5);  // got time only add new class
-			}
-		} else {
-			if (rand.nextBoolean()) {  // rand.nextBoolean()
-				return missesTarget(actor);
-			}
+		if (weapon == null || rand.nextBoolean()) {
+			return missesTarget(actor);
 		}
 
 		int damage = weapon.damage();
