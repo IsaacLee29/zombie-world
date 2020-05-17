@@ -9,7 +9,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	private Crop crop;
 
 	@Override
-	// to get the action if the farmer is standing on a unripe crop
+	// to get the action if the farmer is standing on a unripe crop using displayChar method
 	public Action getAction(Actor actor, GameMap map) {
 		Location locations = map.locationOf(actor);
 		if(locations.getDisplayChar() == 'C') {

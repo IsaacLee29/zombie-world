@@ -40,11 +40,11 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		
-		// if the player hitPoints is lesser than he/she maxHitPoints then search whether the player inventory
+		// when the player hitPoints is lesser than he/she maxHitPoints then search whether the player inventory
 		// contains food
 		if(this.hitPoints < this.maxHitPoints) {
 			for(Item item: this.getInventory()) {
-				if (item.getClass() == Food.class ) {
+				if (item.getDisplayChar() == '=' ) {
 					retVal = true;
 					break;
 				}

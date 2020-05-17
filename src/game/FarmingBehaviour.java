@@ -14,7 +14,6 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	public Action getAction(Actor actor, GameMap map) {
 		
 		for (Exit exit: map.locationOf(actor).getExits()) {
-//			Location destination = exit.getDestination();
 			destination = exit.getDestination();
 			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {
 				if(Math.random() <= 0.33) {

@@ -26,12 +26,12 @@ public class HarvestBehaviour extends Action implements Behaviour{
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		if (actor.getClass() == Farmer.class) {
+		if (actor.getDisplayChar() == 'F') {
 			map.at(destination.x(),destination.y()).setGround(new Dirt());
 			map.at(destination.x(), destination.y()).addItem(new Food("food", '=', true));
 			return menuDescription(actor);
 		}
-		else if (actor.getClass() == Player.class) {
+		else if (actor.getDisplayChar() == '@') {
 			map.at(destination.x(),destination.y()).setGround(new Dirt());
 			actor.addItemToInventory(new Food("food" ,'=', true));
 			return menuDescription(actor);

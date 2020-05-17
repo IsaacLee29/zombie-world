@@ -48,7 +48,7 @@ public class Human extends ZombieActor {
 		// still need to change this code abit. 
 		if (this.hitPoints < this.maxHitPoints) {
 			for (Item item: map.locationOf(this).getItems()) {
-				if (item.getClass() == Food.class) {
+				if (item.getDisplayChar() == '=') {
 					retVal = true;
 					break;
 				}

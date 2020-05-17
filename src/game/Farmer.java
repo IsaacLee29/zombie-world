@@ -29,14 +29,9 @@ public class Farmer extends Human {
 	public Farmer(String name) {
 		super(name, 'F', 50);
 	}
-	// To get the action that the farmer can do
+	// To get the action that the farmer can do randomly
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		boolean retVal = true;
-//		for (Behaviour behaviour : behaviours) {
-//			Action action = behaviour.getAction(this, map);
-//			if (action != null)
-//				return action;
-//		}
 		while (retVal) {
 			Random r = new Random();
 			int randomNumber = r.nextInt(behaviours.length);
