@@ -5,16 +5,24 @@ import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.interfaces.GroundInterface;
 
 public class Crop extends Ground implements GroundInterface{
-	// Testing if there's any changes.
+	/**
+	 * the age of the crop
+	 */
 	private int age = 0;
 	
 	
-	//Constructor for Crop
+	/**
+	 * Default constructor to create a default crop
+	 */
 	public Crop() {
 		super ('C');
 	}
 	
-	// This method is used to increase the life of a crop every turn
+	/**
+	 * Ground can also experience the joy of time.
+	 * Which increment the age of the crop by 1
+	 * @param location The location of the Ground 
+	 */
 	public void tick(Location location) {
 		super.tick(location);
 		
@@ -25,11 +33,17 @@ public class Crop extends Ground implements GroundInterface{
 		}
 	}
 	
-	// When farmer fertilize the crop, its turn reduce my 10 
+	/**
+	 * Fertilising the crop by increasing the age of the crop by 10
+	 */
 	public void fertilise() {
 		age += 10;
 	}
-	// Return the age of the crop
+	
+	/**
+	 * getter for the age of the crop
+	 * @return age of the crop
+	 */
 	public int getAge() {
 		return age;
 	}
