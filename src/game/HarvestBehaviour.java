@@ -17,12 +17,8 @@ public class HarvestBehaviour extends Action implements Behaviour{
 				
 		for(Exit exits : map.locationOf(actor).getExits()) {
 			destination = exits.getDestination();
-			if (exits.getDestination().getGround().getClass() == Crop.class) {
-				Crop crop = (Crop) exits.getDestination().getGround();
-				if (crop.getAge() >= 20) {
-					return this;
-//					return new HarvestAction(exits.getDestination());
-				}
+			if (destination.getDisplayChar() == 'R') {
+				return this;
 			}
 		}
 		return null;

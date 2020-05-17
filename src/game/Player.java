@@ -39,18 +39,21 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		
-		// to get the index of the food item 
-		for(Item item: this.getInventory()) {
-			if (item.getClass() == Food.class ) {
-				retVal = true;
-				break;
+		// if the player hitPoints is lesser than he/she maxHitPoints then search whether the player inventory
+		// contains food
+		if(this.hitPoints < this.maxHitPoints) {
+			for(Item item: this.getInventory()) {
+				if (item.getClass() == Food.class ) {
+					retVal = true;
+					break;
+				}
+				itemCounter += 1;
 			}
-			itemCounter += 1;
 		}
 		// if there's a food in the inventory the player can choose to consume it
 		if (retVal) {
 			Food food = (Food) this.getInventory().get(itemCounter);
-			actions.add(new ConsumeAction(food));
+			actions.add(new ConsumeAction(food, this.hitPoints, this.maxHitPoints));
 		}
 		
 		// if there's ripen crop besides the actor, the actor can choose to harvest the crop

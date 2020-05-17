@@ -16,11 +16,9 @@ public class FarmingBehaviour extends Action implements Behaviour {
 		for (Exit exit: map.locationOf(actor).getExits()) {
 //			Location destination = exit.getDestination();
 			destination = exit.getDestination();
-			if (destination.getGround().getClass() == Dirt.class) {
+			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {
 				if(Math.random() <= 0.33) {
-					
 					return this;
-//					return new SowAction(destination);
 				}
 			}
 		}

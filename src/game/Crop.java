@@ -2,8 +2,9 @@ package game;
 
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.interfaces.GroundInterface;
 
-public class Crop extends Ground{
+public class Crop extends Ground implements GroundInterface{
 	// Testing if there's any changes.
 	private int age = 0;
 	
@@ -32,6 +33,7 @@ public class Crop extends Ground{
 	public int getAge() {
 		return age;
 	}
+	
 	
 
 }

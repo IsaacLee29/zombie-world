@@ -53,7 +53,7 @@ public class Human extends ZombieActor {
 		}
 		
 		if (retVal) {
-			return new ConsumeAction((Food) map.locationOf(this).getItems().get(counter));
+			return new ConsumeAction((Food) map.locationOf(this).getItems().get(counter),this.hitPoints, this.maxHitPoints);
 		}
 		
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
