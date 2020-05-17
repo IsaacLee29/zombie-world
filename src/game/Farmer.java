@@ -17,6 +17,7 @@ public class Farmer extends Human {
 	// Constructor for the farmer that takes in string name.
 	public Farmer(String name) {
 		super(name, 'F', 50);
+		typeOfZombieActor = TypeOfZombieActor.FARMER;
 	}
 	// To get the action that the farmer can do
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {

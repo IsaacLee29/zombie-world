@@ -38,7 +38,8 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 
-		if (weapon == null || rand.nextBoolean()) {
+		if (weapon == null ||
+				(actor.getTypeOfZombieActor() != TypeOfZombieActor.ZOMBIE && rand.nextBoolean())) {
 			return missesTarget(actor);
 		}
 
@@ -46,14 +47,21 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage. ";
 
 		target.hurt(damage);
-		String lostLimb = knockOffLimb(map);
+		String lostLimb = target.loseLimbs(map);
 		if (lostLimb != null) {
-			result += System.lineSeparator() + target + " " + lostLimb;
+			result += System.lineSeparator() + lostLimb;
 		}
 
 
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			// THINK AGAIN ABOUT IF ELSE STATEMENTS
+			Item corpse = new Corpse(target);
+//			if (target.getTypeOfZombieActor() == TypeOfZombieActor.HUMAN) {
+//				corpse = new Corpse(target);
+//			} else {
+//				corpse = new PortableItem("dead " + target, '%');
+//			}
+
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
@@ -82,9 +90,5 @@ public class AttackAction extends Action {
 	 */
 	private String missesTarget(Actor actor) {
 		return actor + " misses " + target + ".";
-	}
-
-	private String knockOffLimb(GameMap map) {
-		return target.loseLimbs(map);
 	}
 }

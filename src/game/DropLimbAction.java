@@ -3,15 +3,13 @@ package game;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 
-/**
- * Special Action for ZombieActors that had their Limbs knocked off.
- *
- */
 public class DropLimbAction extends DropItemAction {
 
-    public DropLimbAction(Limb limb, int damage, String verb) {
-        super(new SimpleClub(limb, damage, verb));
+    // Can't use the getType method (i.e. need to downcast)
+    public DropLimbAction(Item newItem) {
+        super(newItem);
     }
 
     @Override
@@ -19,7 +17,7 @@ public class DropLimbAction extends DropItemAction {
         int x = random((int)(Math.random() * 30)) + map.locationOf(actor).x();
         int y = random((int)(Math.random() * 30)) + map.locationOf(actor).y();
         map.at(x, y).addItem(this.item);
-        return super.menuDescription(actor);
+        return null;
     }
 
     /**

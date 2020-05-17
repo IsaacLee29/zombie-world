@@ -1,30 +1,21 @@
 package game;
 
-public abstract class Limb {
+import edu.monash.fit2099.engine.Item;
 
-    private char displayChar;
+// Maybe rethinking of making Limb an interface
+public abstract class Limb extends Item {
 
-    public Limb(char displayChar) {
-        this.displayChar = displayChar;
+    protected TypeOfLimb typeOfLimb;  // What type of Limb (e.g. Arm or Leg)
+    protected TypeOfZombieActor typeActor;  // Which Actor's Limb (e.g. Zombie)
+
+    public Limb(TypeOfLimb newTypeOfLimb, char charDisplay) {
+        super("Limb", charDisplay,false);
+        typeOfLimb = newTypeOfLimb;
     }
 
-    public char getDisplayChar() {
-        return this.displayChar;
+    public TypeOfLimb getTypeOfLimb() {
+        return typeOfLimb;
     }
 
-    /**
-     * Makes a copy of objects instantiated from classes that inherit this class.
-     * Assigns this copied objects to a reference of this class.
-     *
-     * @return subclass objects with a reference of this class.
-     */
     public abstract Limb makeCopy();
-
-    /**
-     *
-     * @param limb
-     * @return
-     */
-    public abstract boolean equal(Limb limb);
-
 }

@@ -1,5 +1,5 @@
 package game;
 
 public enum TypeOfZombieActor {
-    ZOMBIE, HUMAN, PLAYER
+    ZOMBIE, HUMAN, PLAYER, FARMER
 }
