@@ -38,31 +38,30 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 
-		// 	RE-CHECK THIS AGAIN, TRY TO REMOVE LITERAL
-		if (weapon.verb().equalsIgnoreCase("bites")) {
-			if (Zombie.missBite(rand.nextDouble())) {
-				return missesTarget(actor); }
-			else {
-				actor.heal(5);  // got time only add new class
-			}
-		} else {
-			if (rand.nextBoolean()) {  // rand.nextBoolean()
-				return missesTarget(actor);
-			}
+		if (weapon == null ||
+				(actor.getTypeOfZombieActor() != TypeOfZombieActor.ZOMBIE && rand.nextBoolean())) {
+			return missesTarget(actor);
 		}
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage. ";
 
 		target.hurt(damage);
-		String lostLimb = knockOffLimb(map);
+		String lostLimb = target.loseLimbs(map);
 		if (lostLimb != null) {
-			result += System.lineSeparator() + target + " " + lostLimb;
+			result += System.lineSeparator() + lostLimb;
 		}
 
 
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			// THINK AGAIN ABOUT IF ELSE STATEMENTS
+			Item corpse = new Corpse(target);
+//			if (target.getTypeOfZombieActor() == TypeOfZombieActor.HUMAN) {
+//				corpse = new Corpse(target);
+//			} else {
+//				corpse = new PortableItem("dead " + target, '%');
+//			}
+
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
@@ -91,9 +90,5 @@ public class AttackAction extends Action {
 	 */
 	private String missesTarget(Actor actor) {
 		return actor + " misses " + target + ".";
-	}
-
-	private String knockOffLimb(GameMap map) {
-		return target.loseLimbs(map);
 	}
 }

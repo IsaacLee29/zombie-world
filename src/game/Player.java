@@ -29,6 +29,7 @@ public class Player extends Human {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
+		typeOfZombieActor = TypeOfZombieActor.PLAYER;
 	}
 
 	@Override

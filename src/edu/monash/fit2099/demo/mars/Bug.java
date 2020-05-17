@@ -3,6 +3,7 @@ package edu.monash.fit2099.demo.mars;
 import java.util.*;
 
 import game.Behaviour;
+import game.TypeOfZombieActor;
 import edu.monash.fit2099.engine.*;
 
 
@@ -40,4 +41,9 @@ public class Bug extends Actor {
 	
 	@Override
 	public String loseLimbs(GameMap map) { return null; }
+	
+	@Override
+	public TypeOfZombieActor getTypeOfZombieActor() {
+		return null;
+	}
 }

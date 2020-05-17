@@ -1,30 +1,57 @@
 package game;
 
-public class Leg extends Limb {
+import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.DropItemAction;
+import edu.monash.fit2099.engine.Weapon;
 
-    public static final String LEG_DESCRIPTION = "Leg";
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    public Leg() {
-        super('l');
+public class Leg extends Limb implements Weapon {
+
+    public Leg(TypeOfZombieActor newTypeActor) {
+        super(TypeOfLimb.LEG, 'l');
+        typeActor = newTypeActor;
+        portable = true;
     }
 
-    public Leg(Limb limb) {
-        super(limb.getDisplayChar());
-    }
-
-    @Override
-    public String toString() {
-        return LEG_DESCRIPTION;
+    private Leg(Leg newZombieLeg) {
+        super(newZombieLeg.typeOfLimb, newZombieLeg.displayChar);
+        this.typeActor = newZombieLeg.typeActor;
     }
 
     @Override
     public Limb makeCopy() {
-        Limb copyLimb = new Leg(this);
-        return copyLimb;
+        return new Leg(this);
     }
 
     @Override
-    public boolean equal(Limb limb) {
-        return limb instanceof Leg;
+    public DropItemAction getDropAction() {
+        return new DropLimbAction(this);
+    }
+
+    @Override
+    public List<Action> getAllowableActions() {
+        List<Action> temp = new ArrayList<>(super.getAllowableActions());
+        if (typeActor == TypeOfZombieActor.ZOMBIE) {
+            // add crafting action
+        }
+        return Collections.unmodifiableList(temp);
+    }
+
+    @Override
+    public String verb() {
+        return "whacks";
+    }
+
+    @Override
+    public int damage() {
+        return 10;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
     }
 }

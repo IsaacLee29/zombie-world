@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
+import game.TypeOfZombieActor;
 
 /**
  * Class representing the Player.
@@ -64,4 +65,9 @@ public class Player extends Actor {
 	
 	@Override
 	public String loseLimbs(GameMap map) { return null; }
+	
+	@Override
+	public TypeOfZombieActor getTypeOfZombieActor() {
+		return null;
+	}
 }
