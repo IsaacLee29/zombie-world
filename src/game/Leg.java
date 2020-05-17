@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ZombieArm extends Limb implements Weapon {
+public class Leg extends Limb implements Weapon {
 
-    public ZombieArm(TypeOfZombieActor newTypeActor) {
-        super(TypeOfLimb.ARM, 'a');
+    public Leg(TypeOfZombieActor newTypeActor) {
+        super(TypeOfLimb.LEG, 'l');
         typeActor = newTypeActor;
         portable = true;
     }
 
-    private ZombieArm(ZombieArm newZombieArm) {
-        super(newZombieArm.typeOfLimb, newZombieArm.displayChar);
-        this.typeActor = newZombieArm.typeActor;
+    private Leg(Leg newZombieLeg) {
+        super(newZombieLeg.typeOfLimb, newZombieLeg.displayChar);
+        this.typeActor = newZombieLeg.typeActor;
     }
 
     @Override
     public Limb makeCopy() {
-        return new ZombieArm(this);
+        return new Leg(this);
     }
 
     @Override
@@ -42,17 +42,16 @@ public class ZombieArm extends Limb implements Weapon {
 
     @Override
     public String verb() {
-        return "hits";
+        return "whacks";
     }
 
     @Override
     public int damage() {
-        return 5;
+        return 10;
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
     }
-
 }

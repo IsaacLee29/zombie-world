@@ -57,8 +57,8 @@ public class Zombie extends ZombieActor {
 	private void setLimbs() {
 		zombieLimbs = new Limbs(4);
 		for (int i = 0; i < 2; i++) {
-			zombieLimbs.addLimb(new ZombieArm(typeOfZombieActor));
-			zombieLimbs.addLimb(new ZombieLeg(typeOfZombieActor));
+			zombieLimbs.addLimb(new Arm(typeOfZombieActor));
+			zombieLimbs.addLimb(new Leg(typeOfZombieActor));
 		}
 	}
 
