@@ -202,7 +202,11 @@ public class Zombie extends ZombieActor {
 			while (inventory.contains(WeaponItem.class)) {
 				dropAWeapon(map);
 			}
-		} else if (Math.random() <= DROPPING_WEAPON_PROBABILITY){
+			behaviours = new Behaviour[] {
+					new AttackBehaviour(ZombieCapability.ALIVE),
+					new HuntBehaviour(Human.class, 10),
+					new WanderBehaviour() };		
+		} else if (Math.random() <= DROPPING_WEAPON_PROBABILITY) {
 			dropAWeapon(map);
 		}
 	}
