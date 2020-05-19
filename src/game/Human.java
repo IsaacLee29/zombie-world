@@ -81,6 +81,7 @@ public class Human extends ZombieActor {
 //				actions1.remove(ConsumeAction.class);
 //			}
 //		}
+		actions1.add(behaviour.getAction(this,map));
 		return actions1.get(rand.nextInt(actions.size()));
 
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
