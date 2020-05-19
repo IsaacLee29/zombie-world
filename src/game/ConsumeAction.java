@@ -14,14 +14,7 @@ public class ConsumeAction extends Action {
 	 * The food to be consumed by the actor
 	 */
 	private Food food;
-	/**
-	 * The actor current hit points 
-	 */
-	private int hitPoints;
-	/**
-	 * The actor maximum hit points 
-	 */
-	private int maxHitPoints;
+
 	/**
 	 * The amount healed by the actor
 	 */
@@ -33,10 +26,8 @@ public class ConsumeAction extends Action {
 	 * @param hitPoints actor current hit points 
 	 * @param maxHitPoints actor maximum hit points 
 	 */
-	public ConsumeAction(Food food ,int hitPoints, int maxHitPoints) {
+	public ConsumeAction(Food food) {
 		this.food = food;
-		this.hitPoints = hitPoints;
-		this.maxHitPoints = maxHitPoints;
 	}
 	
 
@@ -52,12 +43,15 @@ public class ConsumeAction extends Action {
 	 */
 	public String execute(Actor actor, GameMap map) {
 		if (actor.getDisplayChar() == '@') {
-			healed = healHitPoints(actor);
+//			healed = healHitPoints(actor);
+			actor.heal(food.getHealth());
 			actor.removeItemFromInventory(food);
+			map.locationOf(actor).removeItem(food);
 			
 		}
 		else if (actor.getDisplayChar() == 'H') {
-			healed = healHitPoints(actor);
+//			healed = healHitPoints(actor);
+			actor.heal(food.getHealth());
 			map.locationOf(actor).removeItem(food);
 		}
 		return menuDescription(actor);
@@ -70,7 +64,7 @@ public class ConsumeAction extends Action {
 	 * @return the text we put on the menu
 	 */
 	public String menuDescription(Actor actor) {
-		return actor + " consumed the food and heal for " + healed;
+		return actor + " consumed the food and healed";
 	}
 	
 	/**
@@ -78,17 +72,19 @@ public class ConsumeAction extends Action {
 	 * @param actor
 	 * @return
 	 */
-	public int healHitPoints(Actor actor) {
-		// a method to heal the actor by having additional check whether after the actor consumed the food 
-		// will heal for more than its current maxHitPoints
-		if (hitPoints + food.getHealth() > maxHitPoints) {
-			actor.heal(maxHitPoints - hitPoints);
-			return maxHitPoints - hitPoints;
-		}
-		else {
-			actor.heal(food.getHealth());
-			return food.getHealth();
-		}
-	}
+//	public int healHitPoints(Actor actor) {
+//		// a method to heal the actor by having additional check whether after the actor consumed the food 
+//		// will heal for more than its current maxHitPoints
+//		if (hitPoints + food.getHealth() > maxHitPoints) {
+//			actor.heal(maxHitPoints - hitPoints);
+//			return maxHitPoints - hitPoints;
+//		}
+//		else {
+//			actor.heal(food.getHealth());
+//			return food.getHealth();
+//		}
+//	}
+	
+	
 	
 }

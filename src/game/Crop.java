@@ -1,5 +1,7 @@
 package game;
 
+import edu.monash.fit2099.engine.Actions;
+import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.interfaces.GroundInterface;
@@ -48,6 +50,16 @@ public class Crop extends Ground implements GroundInterface{
 		return age;
 	}
 	
-	
+//	public Actions allowableActions(Actor actor, Location location, String direction){
+//		Actions actions = new Actions();
+//		if (age < 20) {
+//			actions.add(new FertiliseBehaviour());
+//		}
+//		if (age >= 20) {
+//			actions.add(new HarvestBehaviour());
+//		}
+//		return actions;
+//	}	
+//	
 
 }

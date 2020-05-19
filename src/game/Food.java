@@ -1,5 +1,9 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Item;
 /**
  * Class representing items that can be consumed and gained health when consumed.
@@ -22,6 +26,7 @@ public class Food extends Item{
 	 */
 	public Food(String name, char displayChar, boolean portable, int healthGained) {
 		super(name, displayChar, portable);
+		this.healthGained = healthGained;
 	}
 	
 	/**
@@ -32,5 +37,11 @@ public class Food extends Item{
 		return healthGained;
 	}
 	
+	public List<Action> getAllowableActions() {
+		List <Action> action = new ArrayList<>(super.getAllowableActions());
+		action.add(new ConsumeAction(this));
+		return action;
+	}
+
 	
 }

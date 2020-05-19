@@ -17,7 +17,7 @@ public class Player extends Human {
 
 	private Menu menu = new Menu();
 	private Behaviour[] behaviours = {
-			new HarvestBehaviour()
+			new HarvestBehaviour(),
 	};
 
 	/**
@@ -34,46 +34,42 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		int itemCounter = 0;
-		boolean retVal = false;
-		
+//		int itemCounter = 0;
+//		boolean retVal = false;
+//		
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		
 		// when the player hitPoints is lesser than he/she maxHitPoints then search whether the player inventory
 		// contains food
-		if(this.hitPoints < this.maxHitPoints) {
-			for(Item item: this.getInventory()) {
-				if (item.getDisplayChar() == '=' ) {
-					retVal = true;
-					break;
-				}
-				itemCounter += 1;
-			}
-		}
-		// if there's a food in the inventory the player can choose to consume it
-		if (retVal) {
-			Food food = (Food) this.getInventory().get(itemCounter);
-			actions.add(new ConsumeAction(food, this.hitPoints, this.maxHitPoints));
-		}
-		
-		// if there's ripen crop besides the actor, the actor can choose to harvest the crop
-//		for(Exit exits : map.locationOf(this).getExits()) {
-//			if (exits.getDestination().getGround().getClass() == Crop.class) {
-//				Crop crops = (Crop) exits.getDestination().getGround();
-//				if (crops.getAge() >= 20) {
-//					actions.add(new HarvestAction(exits.getDestination()));
+//		if(this.hitPoints < this.maxHitPoints) {
+//			for(Item item: this.getInventory()) {
+//				if (item.getDisplayChar() == '=' ) {
+//					retVal = true;
+//					break;
 //				}
+//				itemCounter += 1;
 //			}
 //		}
+//		// if there's a food in the inventory the player can choose to consume it
+//		if (retVal) {
+//			Food food = (Food) this.getInventory().get(itemCounter);
+//			actions.add(new ConsumeAction(food, this.hitPoints, this.maxHitPoints));
+//		}
 		
+		
+		for(Item item: this.getInventory()) {
+			if (item.getDisplayChar() == 'a' || item.getDisplayChar() == 'l') {
+				actions.add(new CraftingWeaponAction(item));
+			}
+		}
+
 		for (Behaviour behaviour: behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				actions.add(action);
 			}
 		}
-		
 		return menu.showMenu(this, actions, display);
 	}
 }

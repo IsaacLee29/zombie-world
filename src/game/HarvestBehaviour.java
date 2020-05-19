@@ -22,10 +22,13 @@ public class HarvestBehaviour extends Action implements Behaviour{
 	@Override
 	// To get the actions if there's any ripen crop beside the actor
 
-	public Action getAction(Actor actor, GameMap map) {				
+	public Action getAction(Actor actor, GameMap map) {	
+		if(map.locationOf(actor).getGround().getDisplayChar() == 'R') {
+			return this;
+		}
 		for(Exit exits : map.locationOf(actor).getExits()) {
 			destination = exits.getDestination();
-			if (destination.getDisplayChar() == 'R') {
+			if (destination.getGround().getDisplayChar() == 'R') {
 				return this;
 			}
 		}

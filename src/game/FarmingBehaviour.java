@@ -38,7 +38,6 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 */
 	public Action getAction(Actor actor, GameMap map) {
-		
 		for (Exit exit: map.locationOf(actor).getExits()) {
 			destination = exit.getDestination();
 			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {

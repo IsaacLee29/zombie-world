@@ -24,8 +24,8 @@ public class Farmer extends Human {
 	 * WanderBehaviour which allows the farmer to move around the map
 	 */
 	private Behaviour [] behaviours = {
-			new FarmingBehaviour(),
 			new FertiliseBehaviour(),
+			new FarmingBehaviour(),
 			new HarvestBehaviour(),
 			new WanderBehaviour()
 			};
@@ -61,6 +61,13 @@ public class Farmer extends Human {
 				return action;
 			}
 		}
+		
+//		for (Behaviour behaviour: behaviours) {
+//			Action action = behaviour.getAction(this, map);
+//			if (action != null) {
+//				return action;
+//			}
+//		}
 		
 		return new DoNothingAction();
 	}
