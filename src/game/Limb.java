@@ -2,14 +2,12 @@ package game;
 
 import edu.monash.fit2099.engine.Item;
 
-// Maybe rethinking of making Limb an interface
 public abstract class Limb extends Item {
 
     protected TypeOfLimb typeOfLimb;  // What type of Limb (e.g. Arm or Leg)
-    protected TypeOfZombieActor typeActor;  // Which Actor's Limb (e.g. Zombie)
 
-    public Limb(TypeOfLimb newTypeOfLimb, char charDisplay) {
-        super("Limb", charDisplay,false);
+    public Limb(TypeOfLimb newTypeOfLimb, char charDisplay, boolean portable) {
+        super("Limb", charDisplay,portable);
         typeOfLimb = newTypeOfLimb;
     }
 
@@ -18,4 +16,9 @@ public abstract class Limb extends Item {
     }
 
     public abstract Limb makeCopy();
+
+    @Override
+    public String toString() {
+        return typeOfLimb.toString();
+    }
 }

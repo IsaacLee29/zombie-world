@@ -1,5 +1,6 @@
 package game;
 
 public enum TypeOfLimb {
-    ARM, LEG
+    ZOMBIE_ARM,
+    ZOMBIE_LEG
 }

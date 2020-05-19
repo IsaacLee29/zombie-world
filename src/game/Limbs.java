@@ -8,13 +8,17 @@ public class Limbs {
 
     private final int MAX_LIMBS;
     private List<Limb> limbs;
-    // Try to implement this variable to keep track of number of limbs for every turn
-    // Behaves like the lastAction collection
-    ArrayList<Integer> previousNumOfLimbs;
 
     public Limbs(int maxLimbs) {
+        if (maxLimbs < 0) {
+            throw new IllegalArgumentException();
+        }
         MAX_LIMBS = maxLimbs;
         limbs = new ArrayList<>();
+    }
+
+    public List<Limb> getLimbs() {
+        return Collections.unmodifiableList(limbs);
     }
 
     public boolean addLimb(Limb newLimb) {
@@ -26,30 +30,22 @@ public class Limbs {
         return retVal;
     }
 
-    public List<Limb> getLimbs() {
-//        Collections.shuffle(limbs);
-        return Collections.unmodifiableList(limbs);
-    }
-
     public Limb removeLimb(Limb aLimb) {
         Limb removed = null;
         if (limbs.contains(aLimb)) {
             removed = aLimb.makeCopy();
             limbs.remove(aLimb);
         }
-//        for (NewLimb newLimb: limbs) {
-//            if (newLimb.getTypeOfLimb() == aLimb.getTypeOfLimb()) {
-//                removed = aLimb.makeCopy();
-//                limbs.remove(newLimb);
-//                break;
-//            }
-//        }
         return removed;
     }
 
-    public int howMany(TypeOfLimb typeOfLimb) {
+    public boolean noMoreType(TypeOfLimb typeOfLimb) {
+        return count(typeOfLimb) <= 0;
+    }
+
+    public int count(TypeOfLimb typeOfLimb) {
         int counter = 0;
-        for (Limb newLimb: limbs) {
+        for (Limb newLimb : limbs) {
             if (newLimb.getTypeOfLimb() == typeOfLimb) {
                 counter++;
             }

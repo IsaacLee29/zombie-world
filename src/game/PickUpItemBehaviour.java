@@ -18,7 +18,7 @@ public class PickUpItemBehaviour implements Behaviour {
     public Action getAction(Actor actor, GameMap map) {
         for (Item item: map.locationOf(actor).getItems()) {
             if (targetClass.isInstance(item)) {  // If item can be casted as a specified class type
-                return new PickUpItemAction(item);
+                return item.getPickUpAction();
             }
         }
         return null;

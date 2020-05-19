@@ -40,7 +40,9 @@ public class Bug extends Actor {
 	}
 	
 	@Override
-	public String loseLimbs(GameMap map) { return null; }
+	public String knockOffLimb(GameMap map) {
+		return null;
+	}
 	
 	@Override
 	public TypeOfZombieActor getTypeOfZombieActor() {
