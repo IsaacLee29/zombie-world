@@ -5,9 +5,21 @@ import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 
+/**
+ * Drops a Limb to the ground.
+ * 
+ * Use this class to drop a {@code Limb} object. It determines a random location (that is either
+ * at its current location or an adjacent location to its current) that the limb will be drop onto.
+ * 
+ * @author Isaac Lee Kian Min
+ */
 public class DropLimbAction extends DropItemAction {
 
-    // Can't use the getType method (i.e. need to downcast)
+    /**
+     * Constructor
+     * 
+     * @param newItem a {@code Limb} to be dropped.
+     */
     public DropLimbAction(Item newItem) {
         super(newItem);
     }
@@ -21,7 +33,7 @@ public class DropLimbAction extends DropItemAction {
     }
 
     /**
-     * Returns an Integer number in range -1 < number < 1
+     * Returns an integer number in range -1 < number < 1
      *
      * Intended purpose is to help determine a random coordinate that is adjacent to
      * the Actor that had a Limb knocked off.

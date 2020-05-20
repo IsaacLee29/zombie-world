@@ -4,17 +4,28 @@ import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.Weapon;
 
 /**
- * A Zombie's Arm.
+ * A Zombie's arm.
  *
- * This class models a Zombie's Arm as a type of Limb that can be used as a Weapon
- * when detached from the host Zombie.
+ * This class models a Zombie's arm, as a limb, that can be used as a Weapon
+ * when detached from the host Zombie. Provides methods to drop the ZombieArm and
+ * get its damage and description when wielded as a simple club.
+ *
+ * @author Isaac Lee Kian Min
  */
 public class ZombieArm extends Limb implements Weapon {
 
+    /**
+     * Constructor of a ZombieArm object.
+     */
     public ZombieArm() {
         super(TypeOfLimb.ZOMBIE_ARM, 'a', true);
     }
 
+    /**
+     * A copy constructor of a ZombieArm.
+     *
+     * @param newArm the {@code ZombieArm} to be copied.
+     */
     private ZombieArm(ZombieArm newArm) {
         super(newArm.typeOfLimb, newArm.displayChar, true);
     }
@@ -24,6 +35,11 @@ public class ZombieArm extends Limb implements Weapon {
         return new ZombieArm(this);
     }
 
+    /**
+     * Returns a DropLimbAction that drops this limb.
+     *
+     * @return a DropLimbAction.
+     */
     @Override
     public DropItemAction getDropAction() {
         return new DropLimbAction(this);

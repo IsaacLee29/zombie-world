@@ -32,11 +32,6 @@ public class Player extends Actor {
 	}
 	
 	@Override
-	public String knockOffLimb(GameMap map) {
-		return null;
-	}
-	
-	@Override
 	public TypeOfZombieActor getTypeOfZombieActor() {
 		return null;
 	}

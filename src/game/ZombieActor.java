@@ -27,7 +27,6 @@ public abstract class ZombieActor extends Actor {
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team, TypeOfZombieActor zombieActor) {
 		super(name, displayChar, hitPoints);
 		typeOfZombieActor = zombieActor;
-		
 		addCapability(team);
 	}
 	
@@ -57,10 +56,5 @@ public abstract class ZombieActor extends Actor {
 			return null;
 		}
 		return super.getWeapon();
-	}
-
-	@Override
-	public String knockOffLimb(GameMap map) {
-		return null;
 	}
 }

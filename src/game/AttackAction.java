@@ -33,7 +33,7 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 
-		if (weapon == null) {
+		if (weapon == null) {  // i.e. an Actor misses
 			return actor + " misses " + target + ".";
 		}
 
@@ -47,13 +47,7 @@ public class AttackAction extends Action {
 		}
 
 		if (!target.isConscious()) {
-			// THINK AGAIN ABOUT IF ELSE STATEMENTS
 			Item corpse = new Corpse(target);
-//			if (target.getTypeOfZombieActor() == TypeOfZombieActor.HUMAN) {
-//				corpse = new Corpse(target);
-//			} else {
-//				corpse = new PortableItem("dead " + target, '%');
-//			}
 
 			map.locationOf(target).addItem(corpse);
 			

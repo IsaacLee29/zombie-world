@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * A Zombie.
- * <p>
+ * 
  * This Zombie is pretty boring.  It needs to be made more interesting.
  *
  * @author ram
@@ -25,7 +25,7 @@ public class Zombie extends ZombieActor {
     /**
      * The number of arms and legs a Zombie has.
      */
-    public static final int ARMS_LEGS_NUMBER = 2;
+    public static final int MAX_ARMS_AND_LEGS = 2;
 
     /**
      * The probability of a Zombie saying something.
@@ -35,12 +35,12 @@ public class Zombie extends ZombieActor {
     /**
      * The probability of a Zombie losing a limb from an attack.
      */
-    public static final double LOSE_LIMB_PROBABILITY = 1;  //0.25
+    public static final double LOSE_LIMB_PROBABILITY = 0.25;  //0.25
 
     /**
      * The probability of a Zombie dropping a weapon after losing its arm.
      */
-    public static final double DROP_WEAPON_PROBABILITY = 1;  //0.5
+    public static final double DROP_WEAPON_PROBABILITY = 0.5;  //0.5
 
     /**
      * The phrases that a Zombie can say.
@@ -57,24 +57,14 @@ public class Zombie extends ZombieActor {
      */
     private boolean legKnockedPreviously = false;
 
-//    /**
-//     * If the Zombie previously lost a limb.
-//     */
-//    private boolean limbKnockedPreviously = false;
-
     /**
      * The limbs of a Zombie.
      */
     private Limbs zombieLimbs;
 
-//    /**
-//     * The current state of mobility of the Zombie.
-//     */
-//    private ZombieMobility mobility;
-
     /**
      * The behaviours of a Zombie.
-     * <p>
+     * 
      * It only picks up Weapons.
      * It can attack other ZombieActors.
      * It only hunts for Humans.
@@ -89,7 +79,6 @@ public class Zombie extends ZombieActor {
 
     public Zombie(String name) {
         super(name, 'Z', 100, ZombieCapability.UNDEAD, TypeOfZombieActor.ZOMBIE);
-//        mobility = ZombieMobility.MOBILE;
         setLimbs();
     }
 
@@ -97,8 +86,8 @@ public class Zombie extends ZombieActor {
      * This method sets the number of Limbs a Zombie has.
      */
     private void setLimbs() {
-        zombieLimbs = new Limbs(2*ARMS_LEGS_NUMBER);
-        for (int i = 0; i < ARMS_LEGS_NUMBER; i++) {
+        zombieLimbs = new Limbs(2* MAX_ARMS_AND_LEGS);
+        for (int i = 0; i < MAX_ARMS_AND_LEGS; i++) {
             zombieLimbs.addLimb(new ZombieArm());
             zombieLimbs.addLimb(new ZombieLeg());
         }
@@ -116,8 +105,7 @@ public class Zombie extends ZombieActor {
     /**
      * Gets a Zombie's available weapons and determines whether it is able to
      * inflict damage using the weapon of choice.
-     *
-     * @return a weapon if it is able to inflict damage using it, otherwise null.
+     * 
      */
     @Override
     public Weapon getWeapon() {
@@ -146,20 +134,6 @@ public class Zombie extends ZombieActor {
         }
     }
 
-//    /**
-//     * Do some damage to the Zombie.
-//     * <p>
-//     * Determines whether the Zombie loses any limbs after a successful attack on it.
-//     *
-//     * @param points number of hitpoints to deduct.
-//     */
-//    @Override
-//    public void hurt(int points) {
-//        super.hurt(points);
-//        if (rand.nextDouble() <= LOSE_LIMB_PROBABILITY && zombieLimbs.totalNumberOfLimbs() > 0)
-//            limbKnockedPreviously = true;
-//    }
-
     /**
      * If a Zombie can attack, it will.  If not, it will chase any human within 10 spaces.
      * If no humans are close enough it will wander randomly.
@@ -173,11 +147,6 @@ public class Zombie extends ZombieActor {
      */
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-
-//        if (limbKnockedPreviously) {  // If Zombie lost a limb from an attack
-//            display.println(knockOffLimb(map));
-//            limbKnockedPreviously = false;
-//        }
 
         zombieTalking(display);  // Zombie uttering words
 
@@ -209,11 +178,10 @@ public class Zombie extends ZombieActor {
 
     /**
      * Knocks off a Zombie's limbs.
-     * <p>
+     * 
      * Knocks off at least one limb from the Zombie & drops it at the Zombie's current location
-     * or a location adjacent to it.
-     * Use this method to determined the number of limbs knocked off & drop the limb as a result
-     * of an attack on it.
+     * or a location adjacent to it. Use this method to determined the number of limbs knocked 
+     * off & drop the limb as a result of an attack on it.
      *
      * @param map the map where the current Zombie is.
      * @return a description of the Zombie limbs knocked off.
@@ -229,7 +197,8 @@ public class Zombie extends ZombieActor {
 
             int temp = 1 + rand.nextInt(zombieLimbs.totalNumberOfLimbs());
             for (int i = 0; i < temp; i++) {
-                zombieLimbs.removeLimb(deck.get(i)).getDropAction().execute(this, map);
+                zombieLimbs.removeLimb(deck.get(i));
+                deck.get(i).getDropAction().execute(this, map);
             }
 
             arms -= zombieLimbs.count(TypeOfLimb.ZOMBIE_ARM);
@@ -253,7 +222,7 @@ public class Zombie extends ZombieActor {
 
     /**
      * Drops a weapon the Zombie has.
-     * <p>
+     * 
      * This method drops the first occurrence of a weapon in the Zombie's inventory.
      *
      * @param map the map where the current Zombie is.
@@ -270,7 +239,7 @@ public class Zombie extends ZombieActor {
 
     /**
      * The effects of a Zombie losing an arm or both.
-     * <p>
+     * 
      * This method implements the consequences of a Zombie losing an arm.
      *
      * @param lostArms number of arms lost.
@@ -300,7 +269,7 @@ public class Zombie extends ZombieActor {
 
     /**
      * The effects of a Zombie losing a leg or both.
-     * <p>
+     * 
      * This method implements the consequences of a Zombie losing a leg.
      *
      * @param lostLegs number of legs lost.
@@ -309,12 +278,10 @@ public class Zombie extends ZombieActor {
         // If Zombie lost one leg
         if (!zombieLimbs.noMoreType(TypeOfLimb.ZOMBIE_LEG) && lostLegs == 1 ) {
             legKnockedPreviously = true;
-//            mobility = ZombieMobility.PARTIALLY_MOBILE;
         }
 
         // If Zombie lost both legs or loses its last leg
         if (zombieLimbs.noMoreType(TypeOfLimb.ZOMBIE_LEG) && lostLegs > 0) {
-//            mobility = ZombieMobility.IMMOBILE;
             if (!zombieLimbs.noMoreType(TypeOfLimb.ZOMBIE_ARM)) {
                 setBehaviours(new Behaviour[]{
                         new PickUpItemBehaviour(Weapon.class),
@@ -327,7 +294,7 @@ public class Zombie extends ZombieActor {
 
     /**
      * A Zombie may skip a turn because it lost a leg.
-     * <p>
+     * 
      * This method determines whether the Zombie will skip a turn.
      *
      * @return a boolean value on whether to skip a turn.
@@ -339,11 +306,11 @@ public class Zombie extends ZombieActor {
             retVal = false;
         }
         // If Zombie's legs were knocked off previously
-        else if (legKnockedPreviously && zombieLimbs.count(TypeOfLimb.ZOMBIE_LEG) < ARMS_LEGS_NUMBER) {
+        else if (legKnockedPreviously && zombieLimbs.count(TypeOfLimb.ZOMBIE_LEG) < MAX_ARMS_AND_LEGS) {
             retVal = true;
         }
         // If Zombie doesn't have all it's legs
-        else if (!legKnockedPreviously && zombieLimbs.count(TypeOfLimb.ZOMBIE_LEG) < ARMS_LEGS_NUMBER) {
+        else if (!legKnockedPreviously && zombieLimbs.count(TypeOfLimb.ZOMBIE_LEG) < MAX_ARMS_AND_LEGS) {
             legKnockedPreviously = true;
         }
         return retVal;
