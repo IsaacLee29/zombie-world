@@ -5,9 +5,12 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 /**
- * A class that figures out ferlizing the crop that the actor is standing on which reduce
- * the time taken for the crop to ripe.
- * @author wengsheng
+ * A class of Fertilise Behaviour
+ * 
+ * The implementation of this class is to allow farmer to feritilise the Crop when he/she is 
+ * standing on the Crop. Which it can increase the age of the Crop. So the Crop can ripe faster.
+ * 
+ * @author Hee Weng Sheng 
  *
  */
 public class FertiliseBehaviour extends Action implements Behaviour{
@@ -18,17 +21,8 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * A factory for creating actions. 
-	 *
-	 * A Behaviour represents a kind of objective that an Actor can have.  For example
-	 * it might want to seek out a particular kind of object, or follow another Actor, 
-	 * or run away and hide.  Each implementation of Behaviour returns an Action that the 
-	 * Actor could take to achieve its objective, or null if no useful options are available.
-	 *
-	 * An Actor's playTurn() method can use Behaviours to help decide which Action to 
-	 * perform next.  It can also simply create Actions itself, but using Behaviours allows
-	 * us to modularize the code that decides what to do, and that means that it can be 
-	 * reused if (e.g.) more than one kind of Actor needs to be able to seek, follow, or hide.
+	 * If the Farmer is standing on the crop then the farming can fertilise the crop 
+	 * which increases the age of the crop by 10.
 	 *
 	 * @param actor the Actor acting
 	 * @param map the GameMap containing the Actor
@@ -59,12 +53,9 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * Returns the key used in the menu to trigger this Action.
-	 *
-	 * There's no central management system for this, so you need to be careful not to use the same one twice.
-	 * See https://en.wikipedia.org/wiki/Connascence
-	 *
-	 * @return The key we use for this Action in the menu, or null to have it assigned for you.
+	 * Returns a descriptive string when the Farmer fertilise the crop.
+	 * @param actor The actor performing the action.
+	 * @return the text we put on the menu
 	 */
 	public String menuDescription(Actor actor) {
 		return actor + " fertilised the crop.";

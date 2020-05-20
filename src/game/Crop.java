@@ -6,7 +6,16 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.interfaces.GroundInterface;
 
-public class Crop extends Ground implements GroundInterface{
+/**
+ * A class of Crop
+ * 
+ * A class that implements Crop which can be farmed by farmer 
+ * and harvest by both player and farmer when it is ripe. 
+ * 
+ * @author Hee Weng Sheng
+ *
+ */
+public class Crop extends Ground{
 	/**
 	 * the age of the crop
 	 */
@@ -21,8 +30,7 @@ public class Crop extends Ground implements GroundInterface{
 	}
 	
 	/**
-	 * Ground can also experience the joy of time.
-	 * Which increment the age of the crop by 1
+	 * Which increment the age of the crop by 1 every turn.
 	 * @param location The location of the Ground 
 	 */
 	public void tick(Location location) {
@@ -36,7 +44,7 @@ public class Crop extends Ground implements GroundInterface{
 	}
 	
 	/**
-	 * Fertilising the crop by increasing the age of the crop by 10
+	 * Fertilising the crop which increasing the age of the crop by 10
 	 */
 	public void fertilise() {
 		age += 10;

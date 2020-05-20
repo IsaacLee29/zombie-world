@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.Action;
@@ -9,9 +10,11 @@ import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 /**
  * Class representing an ordinary Farmer.
+ * 
+ * A class to implement what the farmer can do based on the behaviours the farmer has.
  * Where this farmer have these behaviours which allow them to
  * farm, fertilize crop, harvest crop and wander around the map.
- * @author wengsheng
+ * @author Hee Weng Sheng
  *
  */
 
@@ -42,8 +45,7 @@ public class Farmer extends Human {
 
 	@Override
 	/**
-	 * Select and return an action to perform on the current turn. 
-	 * It will randomly choose an action 
+	 * Select an action randomly and execute it.
 	 *
 	 * @param actions    collection of possible Actions for this Actor
 	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
@@ -52,14 +54,21 @@ public class Farmer extends Human {
 	 * @return the Action to be performed
 	 */
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		boolean retVal = true;
-		while (retVal) {
-			Random r = new Random();
-			int randomNumber = r.nextInt(behaviours.length);
-			Action action = behaviours[randomNumber].getAction(this, map);
-			
+//		boolean retVal = true;
+//		while (retVal) {
+//			Random r = new Random();
+//			int randomNumber = r.nextInt(behaviours.length);
+//			Action action = behaviours[randomNumber].getAction(this, map);
+//			
+//			if (action != null) {
+//				return action;
+//			}
+//		}
+
+		for (Behaviour behaviour: behaviours) {
+			Action action = behaviour.getAction(this, map);
 			if (action != null) {
-				return action;
+				actions.add(action);
 			}
 		}
 		
@@ -69,6 +78,9 @@ public class Farmer extends Human {
 //				return action;
 //			}
 //		}
+		if (actions.size() > 0) {
+			return actions.get(rand.nextInt(actions.size()));
+		}
 		
 		return new DoNothingAction();
 	}

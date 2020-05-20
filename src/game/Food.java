@@ -6,8 +6,11 @@ import java.util.List;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Item;
 /**
- * Class representing items that can be consumed and gained health when consumed.
- * @author wengsheng
+ * A class of Food.
+ * 
+ * A implementation of food class and having a consumedAction to allow actor to consumed the food.
+ * 
+ * @author Hee Weng Sheng 
  *
  */
 public class Food extends Item{

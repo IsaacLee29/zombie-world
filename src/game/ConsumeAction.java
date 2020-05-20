@@ -5,7 +5,11 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 /**
  * Special action to consume food by the actor
- * @author wengsheng
+ * 
+ * The implementation of this class so player or damage human can consumed food and 
+ * healed them as an ConsumeAction.
+ * 
+ * @author Hee Weng Sheng
  *
  */
 
@@ -14,17 +18,10 @@ public class ConsumeAction extends Action {
 	 * The food to be consumed by the actor
 	 */
 	private Food food;
-
-	/**
-	 * The amount healed by the actor
-	 */
-	private int healed;
 	
 	/**
 	 * Default constructor to create default ConsumeAction
 	 * @param food consumed by the actor
-	 * @param hitPoints actor current hit points 
-	 * @param maxHitPoints actor maximum hit points 
 	 */
 	public ConsumeAction(Food food) {
 		this.food = food;
@@ -59,7 +56,7 @@ public class ConsumeAction extends Action {
 
 	@Override
 	/**
-	 * Returns a descriptive string
+	 * Returns a descriptive string when the player consumed the food. 
 	 * @param actor The actor performing the action.
 	 * @return the text we put on the menu
 	 */

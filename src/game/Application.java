@@ -53,6 +53,10 @@ public class Application {
 		world.addPlayer(player, gameMap.at(42, 15));
 		
 		gameMap.at(43, 14).addActor(new Farmer("Halo"));
+		gameMap.at(43, 15).addActor(new Farmer("Halo1"));
+		gameMap.at(43, 16).addActor(new Farmer("Halo2"));
+		gameMap.at(43, 17).addActor(new Farmer("Halo3"));
+		gameMap.at(43, 18).addActor(new Farmer("Halo4"));
 		
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",

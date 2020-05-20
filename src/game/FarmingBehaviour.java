@@ -1,6 +1,9 @@
 package game;
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Exit;
@@ -8,9 +11,12 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
 /**
- * A class that figure out a sow action that will sow a crop on the ground besides where the 
- * actor is standing. 
- * @author wengsheng
+ * A class of Farming Behaviour
+ *  
+ * The implementation of this class is to allowed Farmer to sow a crop when the Farmer is standing 
+ * besides a dirt. 
+ *  
+ * @author Hee Weng Sheng 
  *
  */
 
@@ -19,32 +25,34 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	 * The location besides the actor
 	 */
 	private Location destination;
+	/**
+	 * Random number generator
+	 */
+	protected Random rand = new Random();
 	
 	/**
-	 * A factory for creating actions. 
-	 *
-	 * A Behaviour represents a kind of objective that an Actor can have.  For example
-	 * it might want to seek out a particular kind of object, or follow another Actor, 
-	 * or run away and hide.  Each implementation of Behaviour returns an Action that the 
-	 * Actor could take to achieve its objective, or null if no useful options are available.
-	 *
-	 * An Actor's playTurn() method can use Behaviours to help decide which Action to 
-	 * perform next.  It can also simply create Actions itself, but using Behaviours allows
-	 * us to modularize the code that decides what to do, and that means that it can be 
-	 * reused if (e.g.) more than one kind of Actor needs to be able to seek, follow, or hide.
+	 * it will get all the locations besides where the actor is standing on 
+	 * and check whether the location is a dirt. If it is a dirt it have a 33% chance to
+	 * sow a crop. If there are multiple places that the actor can sow the crop then it will 
+	 * randomly choose a location.
 	 *
 	 * @param actor the Actor acting
 	 * @param map the GameMap containing the Actor
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 */
 	public Action getAction(Actor actor, GameMap map) {
+		ArrayList<Action> actions = new ArrayList<>();
 		for (Exit exit: map.locationOf(actor).getExits()) {
 			destination = exit.getDestination();
 			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {
 				if(Math.random() <= 0.33) {
-					return this;
+//					return this;
+					actions.add(this);
 				}
 			}
+		}
+		if (actions.size() > 0){
+			return actions.get(rand.nextInt(actions.size()));
 		}
 		return null;
 	}
@@ -52,7 +60,7 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	@Override
 	/**
 	 * Perform the FarmingBehaviour action by sowing a crop on the ground beside where the actor is
-	 * standing.
+	 * standing. 
 	 *
 	 * @param actor The actor performing the action.
 	 * @param map The map the actor is on.
@@ -65,7 +73,7 @@ public class FarmingBehaviour extends Action implements Behaviour {
 
 	@Override
 	/**
-	 * Returns a descriptive string
+	 * Returns a descriptive string when the actor sow a crop.
 	 * @param actor The actor performing the action.
 	 * @return the text we put on the menu
 	 */
