@@ -96,6 +96,5 @@ public class Application {
 //		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 //		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));	
 		world.run();
-
 	}
 }
