@@ -40,14 +40,12 @@ public class ConsumeAction extends Action {
 	 */
 	public String execute(Actor actor, GameMap map) {
 		if (actor.getDisplayChar() == '@') {
-//			healed = healHitPoints(actor);
 			actor.heal(food.getHealth());
 			actor.removeItemFromInventory(food);
 			map.locationOf(actor).removeItem(food);
 			
 		}
 		else if (actor.getDisplayChar() == 'H') {
-//			healed = healHitPoints(actor);
 			actor.heal(food.getHealth());
 			map.locationOf(actor).removeItem(food);
 		}
@@ -63,25 +61,4 @@ public class ConsumeAction extends Action {
 	public String menuDescription(Actor actor) {
 		return actor + " consumed the food and healed";
 	}
-	
-	/**
-	 * Heal the actor who consumed the food.
-	 * @param actor
-	 * @return
-	 */
-//	public int healHitPoints(Actor actor) {
-//		// a method to heal the actor by having additional check whether after the actor consumed the food 
-//		// will heal for more than its current maxHitPoints
-//		if (hitPoints + food.getHealth() > maxHitPoints) {
-//			actor.heal(maxHitPoints - hitPoints);
-//			return maxHitPoints - hitPoints;
-//		}
-//		else {
-//			actor.heal(food.getHealth());
-//			return food.getHealth();
-//		}
-//	}
-	
-	
-	
 }

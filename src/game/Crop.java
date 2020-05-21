@@ -44,7 +44,7 @@ public class Crop extends Ground{
 	}
 	
 	/**
-	 * Fertilising the crop which increasing the age of the crop by 10
+	 * Fertilising the crop which reduce the time to be ripen by 1-
 	 */
 	public void fertilise() {
 		age += 10;
@@ -57,17 +57,5 @@ public class Crop extends Ground{
 	public int getAge() {
 		return age;
 	}
-	
-//	public Actions allowableActions(Actor actor, Location location, String direction){
-//		Actions actions = new Actions();
-//		if (age < 20) {
-//			actions.add(new FertiliseBehaviour());
-//		}
-//		if (age >= 20) {
-//			actions.add(new HarvestBehaviour());
-//		}
-//		return actions;
-//	}	
-//	
 
 }

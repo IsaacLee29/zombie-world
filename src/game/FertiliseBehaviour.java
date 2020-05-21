@@ -22,7 +22,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	@Override
 	/**
 	 * If the Farmer is standing on the crop then the farming can fertilise the crop 
-	 * which increases the age of the crop by 10.
+	 * which reduce the time to be ripen by 10.
 	 *
 	 * @param actor the Actor acting
 	 * @param map the GameMap containing the Actor
@@ -30,7 +30,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	 */
 	public Action getAction(Actor actor, GameMap map) {
 		Location locations = map.locationOf(actor);
-		if(locations.getDisplayChar() == 'C') {
+		if(locations.getGround().getDisplayChar() == 'C') {
 			return this;
 		}
 		return null;

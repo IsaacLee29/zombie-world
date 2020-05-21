@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.Item;
  * A special action to craft weapon.
  * 
  * In this class player can use zombie's limb to craft into
- * a weapon depends on which zombie's limb they using as an action.
+ * a weapon which depends on the zombie's limb they are using as an action.
  * @author Hee Weng Sheng
  *
  */
@@ -20,7 +20,7 @@ public class CraftingWeaponAction extends Action{
 	
 	/**
 	 * Constructor 
-	 * @param limb the limb of the zombie 
+	 * @param limb the limb of the zombie using to craft into weapon 
 	 */
 	public CraftingWeaponAction(Item limb) {
 		this.limb = limb;

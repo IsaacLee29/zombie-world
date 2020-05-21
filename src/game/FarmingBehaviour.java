@@ -31,28 +31,23 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	protected Random rand = new Random();
 	
 	/**
-	 * it will get all the locations besides where the actor is standing on 
+	 * It will get all the locations besides where the actor is standing on 
 	 * and check whether the location is a dirt. If it is a dirt it have a 33% chance to
 	 * sow a crop. If there are multiple places that the actor can sow the crop then it will 
-	 * randomly choose a location.
+	 * randomly choose a location to sow the crop.
 	 *
 	 * @param actor the Actor acting
 	 * @param map the GameMap containing the Actor
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 */
 	public Action getAction(Actor actor, GameMap map) {
-		ArrayList<Action> actions = new ArrayList<>();
 		for (Exit exit: map.locationOf(actor).getExits()) {
 			destination = exit.getDestination();
 			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {
 				if(Math.random() <= 0.33) {
-//					return this;
-					actions.add(this);
+					return this;
 				}
 			}
-		}
-		if (actions.size() > 0){
-			return actions.get(rand.nextInt(actions.size()));
 		}
 		return null;
 	}

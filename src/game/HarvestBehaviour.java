@@ -31,24 +31,18 @@ public class HarvestBehaviour extends Action implements Behaviour{
 	protected Random rand = new Random();
 	@Override
 	/**
-	 * To get the actions if there's any ripen crop beside the actor. If there's multiple ripe
-	 * Crop around the actor then it will randomly harvest one of the crop.
+	 * To get the actions if there's any ripen crop beside the actor or the actor is standing on it.
+	 * The actor will harvest the crop.
 	 */
 	public Action getAction(Actor actor, GameMap map) {	
-		ArrayList<Action> actions = new ArrayList<>();
 		if(map.locationOf(actor).getGround().getDisplayChar() == 'R') {
-//			return this;
-			actions.add(this);
+			return this;
 		}
 		for(Exit exits : map.locationOf(actor).getExits()) {
 			destination = exits.getDestination();
 			if (destination.getGround().getDisplayChar() == 'R') {
-//				return this;
-				actions.add(this);
+				return this;
 			}
-		}
-		if (actions.size() > 0) {
-			return actions.get(rand.nextInt(actions.size()));
 		}
 		return null;
 	}
