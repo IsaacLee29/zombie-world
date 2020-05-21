@@ -99,6 +99,11 @@ public class Human extends ZombieActor {
 //		return behaviour.getAction(this, map);
 	}
 
+	/**
+	 * Since Humans can only be killed by {@code Zombie}, they can be revived.
+	 * 
+	 * @return true.
+	 */
 	@Override
 	public boolean ableToRevive() {
 		return true;
