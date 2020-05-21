@@ -18,6 +18,10 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	 * The crop to be fertilise.
 	 */
 	private Crop crop;
+	/**
+	 * The destination to fertilise the crop.
+	 */
+	private Location destination;
 
 	@Override
 	/**
@@ -29,8 +33,8 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 */
 	public Action getAction(Actor actor, GameMap map) {
-		Location locations = map.locationOf(actor);
-		if(locations.getGround().getDisplayChar() == 'C') {
+		destination = map.locationOf(actor);
+		if(destination.getGround().getDisplayChar() == 'C') {
 			return this;
 		}
 		return null;

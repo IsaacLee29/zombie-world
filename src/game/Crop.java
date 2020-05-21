@@ -21,7 +21,6 @@ public class Crop extends Ground{
 	 */
 	private int age = 0;
 	
-	
 	/**
 	 * Default constructor to create a default crop
 	 */
