@@ -6,9 +6,9 @@ import edu.monash.fit2099.engine.Weapon;
 /**
  * A Zombie's Leg.
  *
- * This class models a Zombie's Leg, as a limb, that can be used as a Weapon
- * when detached from the host Zombie. Provides methods to drop the ZombieLeg and
- * get its damage and description when wielded as a simple club.
+ * This class models a Zombie's leg, as a {@code Limb}, that can be used as a {@code Weapon}
+ * when detached from the host Zombie. Provides methods to drop the {@code ZombieLeg} and get 
+ * its damage and description when wielded as a simple club.
  *
  * @author Isaac Lee Kian Min
  */
@@ -36,9 +36,9 @@ public class ZombieLeg extends Limb implements Weapon {
     }
 
     /**
-     * Returns a DropLimbAction that drops this limb.
+     * Returns a {@code DropLimbAction} that drops this {@code Limb}.
      *
-     * @return a DropLimbAction.
+     * @return a {@code DropLimbAction}.
      */
     @Override
     public DropItemAction getDropAction() {

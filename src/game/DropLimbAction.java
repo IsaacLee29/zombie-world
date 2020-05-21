@@ -38,8 +38,8 @@ public class DropLimbAction extends DropItemAction {
      * Intended purpose is to help determine a random coordinate that is adjacent to
      * the Actor that had a Limb knocked off.
      *
-     * @param num A randomly generated number.
-     * @return An Integer number between -1 and 1
+     * @param num a randomly generated number.
+     * @return an Integer number between -1 and 1
      */
     private int random(int num) {
         if (num <= 10) {

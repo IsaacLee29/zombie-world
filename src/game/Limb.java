@@ -5,9 +5,11 @@ import edu.monash.fit2099.engine.Item;
 /**
  * A Limb.
  *
- * This class seeks to give a template to create objects that are essentially limbs.
+ * This class provides a template to create objects that are essentially limbs.
  * In the ZombieWorld, a limb is considered a physical object. Provides methods to get the
  * type of limb, making a deep copy and description of the limb.
+ * 
+ * Use this class if you want to model a limb.
  *
  * @author Isaac Lee Kian Min
  */

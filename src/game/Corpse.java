@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * A Corpse that refers to a dead actor.
  *
- * This class models after the corpse when an Actor dies in the ZombieWorld. A dead actor that
+ * This class models after a corpse when an Actor dies in the ZombieWorld. A dead actor that
  * is a human may revive to become a zombie within 5-10 play turns if the human was killed by
  * the Zombie.
  *
