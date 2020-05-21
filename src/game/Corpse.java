@@ -38,6 +38,16 @@ public class Corpse extends PortableItem {
         count = 0;
         revivalCount = (int)(5 + (Math.random() * 5));
     }
+    
+    /**
+     * Overrides its superclass method to check whether the dead actor is able to be revived
+     * and that is was a human (since humans can only be attacked by a Zombie). If so, a new
+     * Zombie is added into either the current location of the corpse or an adjacent location.
+     */
+    @Override
+    public void tick(Location currentLocation) {
+        this.tick(currentLocation, deadActor);
+    }
 
     /**
      * Overrides its superclass method to check whether the dead actor is able to be revived
@@ -47,13 +57,16 @@ public class Corpse extends PortableItem {
      * @param currentLocation The location of the ground on which we lie.
      */
     @Override
-    public void tick(Location currentLocation) {
+    public void tick(Location currentLocation, Actor actor) {
         if (deadActor.ableToRevive() && count == revivalCount) {
             // If an Actor is carrying the corpse or standing on the corpse
             if (currentLocation.containsAnActor()) {
                 Random rand = new Random();
                 int random = rand.nextInt(currentLocation.getExits().size());
-                // Adds the corpse to a random location
+                // Adds the corpse to a random location if there's no Actors
+                while (currentLocation.getExits().get(random).getDestination().containsAnActor()) {
+                	random = rand.nextInt(currentLocation.getExits().size());
+                }
                 currentLocation.getExits().get(random).getDestination()
                         .addActor(new Zombie(deadActor.toString()));
                 currentLocation.getActor().removeItemFromInventory(this);  // If Actor holding corpse

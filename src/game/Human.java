@@ -99,6 +99,10 @@ public class Human extends ZombieActor {
 //		return behaviour.getAction(this, map);
 	}
 
+	@Override
+	public boolean ableToRevive() {
+		return true;
+	}
 }
 
 	
