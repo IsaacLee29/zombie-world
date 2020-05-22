@@ -16,16 +16,14 @@ import edu.monash.fit2099.engine.Menu;
 public class Player extends Human {
 
 	private Menu menu = new Menu();
-	private Behaviour[] behaviours = {
-			new HarvestBehaviour(),
-	};
+	private Behaviour[] behaviours = { new HarvestBehaviour() };
 
 	/**
 	 * Constructor.
 	 *
 	 * @param name        Name to call the player in the UI
 	 * @param displayChar Character to represent the player in the UI
-	 * @param hitPoints   Player's starting number of hitpoints
+	 * @param hitPoints   Player's starting number of hitPoints
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
@@ -34,53 +32,35 @@ public class Player extends Human {
 
 	@Override
 	/**
-	 * Select and return an action to perform on the current turn. 
-	 * In this method, it will check whether the player inventory consumed zombie's limbs so it can 
+	 * Select and return an action to perform on the current turn. In this method,
+	 * it will check whether the player inventory consumed zombie's limbs so it can
 	 * add crafting action if it contains.
 	 *
 	 * @param actions    collection of possible Actions for this Actor
-	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+	 * @param lastAction The Action this Actor took last turn. Can do interesting
+	 *                   things in conjunction with Action.getNextAction()
 	 * @param map        the map containing the Actor
 	 * @param display    the I/O object to which messages may be written
 	 * @return the Action to be performed
 	 */
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-//		int itemCounter = 0;
-//		boolean retVal = false;
-//		
+
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
-		
-		// when the player hitPoints is lesser than he/she maxHitPoints then search whether the player inventory
-		// contains food
-//		if(this.hitPoints < this.maxHitPoints) {
-//			for(Item item: this.getInventory()) {
-//				if (item.getDisplayChar() == '=' ) {
-//					retVal = true;
-//					break;
-//				}
-//				itemCounter += 1;
-//			}
-//		}
-//		// if there's a food in the inventory the player can choose to consume it
-//		if (retVal) {
-//			Food food = (Food) this.getInventory().get(itemCounter);
-//			actions.add(new ConsumeAction(food, this.hitPoints, this.maxHitPoints));
-//		}
-		
-		
-		for(Item item: this.getInventory()) {
+		// check whether the player inventory consist of zombie's arm or leg
+		for (Item item : this.getInventory()) {
 			if (item.getDisplayChar() == 'a' || item.getDisplayChar() == 'l') {
 				actions.add(new CraftingWeaponAction(item));
 			}
 		}
 
-		for (Behaviour behaviour: behaviours) {
+		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				actions.add(action);
 			}
 		}
+
 		return menu.showMenu(this, actions, display);
 	}
 }
