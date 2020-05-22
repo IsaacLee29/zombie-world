@@ -4,11 +4,11 @@ import edu.monash.fit2099.engine.*;
 
 /**
  * A factory for creating pick up actions.
- * <p>
- * This class creates a {@code PickUpAction} that will pick up an instance of a target class 
+ * 
+ * <p>This class creates a {@code PickUpAction} that will pick up an instance of a target class 
  * that is-a {@code Item}.
- * <p>
- * Use this class to pick up a specific instance of an item.
+ * 
+ * <p>Use this class to pick up a specific instance of an item.
  * 
  * @author Isaac Lee Kian Min
  */

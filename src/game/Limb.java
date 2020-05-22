@@ -4,14 +4,14 @@ import edu.monash.fit2099.engine.Item;
 
 /**
  * A Limb.
- * <p>
- * This {@code abstract} class provides a template to create objects that are a {@code Limb}. 
+ * 
+ * <p>This {@code abstract} class provides a template to create objects that are a {@code Limb}. 
  * In the zombie game, a {@code Limb} is considered a physical object. 
- * <p>
- * Provides methods to get the type of limb, making a deep copy and provide a description 
+ * 
+ * <p>Provides methods to get the type of limb, making a deep copy and provide a description 
  * of the {@code Limb}.
- * <p>
- * Use this class to model different types of limb.
+ * 
+ * <p>Use this class to model different types of limb.
  *
  * @author Isaac Lee Kian Min
  */

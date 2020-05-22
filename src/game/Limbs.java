@@ -7,14 +7,14 @@ import java.util.Objects;
 
 /**
  * A Collection of {@code Limb} objects.
- * <p>
- * {@code Limbs} represents a collection of {@code Limb} objects that an {@code Actor} in 
+ * 
+ * <p>{@code Limbs} represents a collection of {@code Limb} objects that an {@code Actor} in 
  * the zombie game may have.
- * <p>
- * Provides methods to check how many limbs there are, adding a limb, removing a limb and 
+ * 
+ * <p>Provides methods to check how many limbs there are, adding a limb, removing a limb and 
  * getting a copy of the collection of limbs.
- * <p>
- * Use this class to model an {@code Actor} in the zombie game having limbs.
+ * 
+ * <p>Use this class to model an {@code Actor} in the zombie game having limbs.
  *
  * @author Isaac Lee Kian Min
  */
@@ -60,7 +60,7 @@ public class Limbs {
      * @return true if and only if {@code Limb} added successfully.
      */
     public boolean addLimb(Limb newLimb) {
-        Objects.requireNonNull(newLimb);
+        Objects.requireNonNull(newLimb);  // check for null references
         boolean retVal = false;
         if (limbs.size() < MAX_LIMBS) {
             limbs.add(newLimb);
@@ -76,7 +76,7 @@ public class Limbs {
      * @return true if and only if the {@code Limb} removed successfully.
      */
     public boolean removeLimb(Limb aLimb) {
-        Objects.requireNonNull(aLimb);
+        Objects.requireNonNull(aLimb);  // check for null references
         boolean retVal = false;
         if (limbs.contains(aLimb)) {
             limbs.remove(aLimb);
@@ -103,8 +103,8 @@ public class Limbs {
 
     /**
      * Is there a specific type of limb?
-     * <p>
-     * This method checks whether the collection of limbs still contains a specific 
+     * 
+     * <p>This method checks whether the collection of limbs still contains a specific 
      * {@code TypeOfLimb}
      *
      * @param typeOfLimb the {@code TypeOfLimb} to be checked.

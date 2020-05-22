@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Weapon;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -26,6 +27,7 @@ public abstract class ZombieActor extends Actor {
 	
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team, TypeOfZombieActor zombieActor) {
 		super(name, displayChar, hitPoints);
+		Objects.requireNonNull(zombieActor);  // check for null references
 		typeOfZombieActor = zombieActor;
 		addCapability(team);
 	}
@@ -49,8 +51,8 @@ public abstract class ZombieActor extends Actor {
 	 * If the current Actor is carrying weapons, returns the first one in the
 	 * inventory. Otherwise, returns the Actor's natural fighting equipment e.g.
 	 * fists.
-	 * <p>
-	 * In the zombie game, the zombie actor will determine its chances of missing
+	 * 
+	 * <p>In the zombie game, the zombie actor will determine its chances of missing
 	 * while fighting.
 	 *
 	 * @return null if and only if it misses the target, otherwise its {@code Weapon}.

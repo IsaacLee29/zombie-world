@@ -7,10 +7,10 @@ import edu.monash.fit2099.engine.Item;
 
 /**
  * An Action to drop a {@code Limb} to the ground.
- * <p>
- * Provides methods to drop the {@code Limb} and to help determine a random location.
- * <p>
- * Use this class to drop a {@code Limb} object onto a random location (either at its 
+ * 
+ * <p>Provides methods to drop the {@code Limb} and to help determine a random location.
+ * 
+ * <p>Use this class to drop a {@code Limb} object onto a random location (either at its 
  * current location or an adjacent one).
  *  
  * @author Isaac Lee Kian Min
@@ -40,8 +40,8 @@ public class DropLimbAction extends DropItemAction {
 
     /**
      * Returns an integer number in range -1 < number < 1
-     * <p>
-     * Intended purpose is to help determine a random coordinate that is adjacent to
+     * 
+     * <p>Intended purpose is to help determine a random coordinate that is adjacent to
      * the {@code Actor} that had a {@code Limb} knocked off.
      *
      * @param num a randomly generated number.

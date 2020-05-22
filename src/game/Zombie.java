@@ -64,8 +64,8 @@ public class Zombie extends ZombieActor {
 
     /**
      * The behaviours of a zombie.
-     * <p>
-     * It only picks up {@code Weapons}, attack other {@code ZombieActors}, hunt for 
+     * 
+     * <p>It only picks up {@code Weapons}, attack other {@code ZombieActors}, hunt for 
      * {@code Humans} and wander around the {@code GameMap}.
      */
     private Behaviour[] behaviours = {
@@ -174,11 +174,11 @@ public class Zombie extends ZombieActor {
 
     /**
      * Knocks off a zombie's limbs.
-     * <p>
-     * Knocks off at least one {@code Limb} from the zombie and drops it at the zombie's 
+     * 
+     * <p>Knocks off at least one {@code Limb} from the zombie and drops it at the zombie's 
      * current or adjacent location. 
-     * <p>
-     * Use this method to knock off at least one limb from the zombie.
+     * 
+     * <p>Use this method to knock off at least one limb from the zombie.
      *
      * @return a description of the number of limbs being knocked off.
      */
@@ -218,8 +218,8 @@ public class Zombie extends ZombieActor {
 
     /**
      * Drops a weapon the zombie has.
-     * <p>
-     * This method drops the first occurrence of a {@code Weapon} in the Zombie's inventory.
+     * 
+     * <p>This method drops the first occurrence of a {@code Weapon} in the Zombie's inventory.
      *
      * @param map the map where the current zombie is.
      */
@@ -235,8 +235,8 @@ public class Zombie extends ZombieActor {
 
     /**
      * The effects of a zombie losing an arm or both.
-     * <p>
-     * This method implements the consequences of a {@code Zombie} losing an arm.
+     * 
+     * <p>This method implements the consequences of a {@code Zombie} losing an arm.
      * 
      * @param lostArms number of arms lost.
      */
@@ -265,8 +265,8 @@ public class Zombie extends ZombieActor {
 
     /**
      * The effects of a zombie losing a leg or both.
-     * <p>
-     * This method implements the consequences of a {@code Zombie} losing a leg.
+     * 
+     * <p>This method implements the consequences of a {@code Zombie} losing a leg.
      *
      * @param lostLegs number of legs lost.
      */
@@ -290,8 +290,8 @@ public class Zombie extends ZombieActor {
 
     /**
      * A zombie may skip a turn because it lost a leg.
-     * <p>
-     * This method determines whether the {@code Zombie} will skip a turn.
+     * 
+     * <p>This method determines whether the {@code Zombie} will skip a turn.
      *
      * @return a boolean value on whether to skip a turn.
      */

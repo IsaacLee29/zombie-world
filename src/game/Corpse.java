@@ -7,14 +7,14 @@ import java.util.Random;
 
 /**
  * A Corpse.
- * <p>
- * This class models after the corpse of a dead {@code Actor} in the ZombieWorld. A dead actor 
- * that is a {@code Human} may revive to become a {@code Zombie} within 5-10 play turns.
- * <p>
- * Provides methods to revive the deceased {@code ZombieActor} if it is a {@code Human} and to 
- * simulate the passage of time for the {@code Corpse}. 
- * <p>
- * Use this class to create a corpse.
+ * 
+ * <p>This class models after the corpse of a dead {@code Actor} in the ZombieWorld. A dead 
+ * actor that is a {@code Human} may revive to become a {@code Zombie} within 5-10 play turns.
+ * 
+ * <p>Provides methods to revive the deceased {@code ZombieActor} if it is a {@code Human} 
+ * and to simulate the passage of time for the {@code Corpse}. 
+ * 
+ * <p>Use this class to create a corpse.
  *
  * @author Isaac Lee Kian Min
  */
@@ -27,8 +27,8 @@ public class Corpse extends PortableItem {
 
     /**
      * {@code count} counts the number of play turns passed.
-     * <p>
-     * {@code revivalCount} determines the number at which an actor may be revived.
+     * 
+     * <p>{@code revivalCount} determines the number at which an actor may be revived.
      */
     private int count, revivalCount;
 
@@ -56,8 +56,8 @@ public class Corpse extends PortableItem {
     /**
      * Inform the Corpse on the ground of the passage of time and to determine whether the
      * deceased {@code Actor} is able to be revived.
-     * <p>
-     * If the {@code Corpse} represent a dead {@code Human}, it will revive the {@code Human} 
+     * 
+     * <p>If the {@code Corpse} represent a dead {@code Human}, it will revive the {@code Human} 
      * to become a {@code Zombie} within 5-10 play turns since {@code Human} can only be
      * killed by {@code Zombie} in the zombie game.
      */

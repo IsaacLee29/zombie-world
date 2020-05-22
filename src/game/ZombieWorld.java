@@ -13,8 +13,8 @@ public interface ZombieWorld {
 
     /**
      * Get the type of {@code Actor} it is in the zombie game.
-     * <p>
-     * Implement this method to get the type of {@code Actor} it is in zombie game.
+     * 
+     * <p>Implement this method to get the type of {@code Actor} it is in zombie game.
      * 
      * @return type of actor.
      */
@@ -22,8 +22,8 @@ public interface ZombieWorld {
 
     /**
      * An {@code Actor} in the zombie game can have its limbs knocked off, if it has limbs.
-     * <p>
-     * Override this method to determine how an actor that has limbs may have its limbs
+     * 
+     * <p>Override this method to determine how an actor that has limbs may have its limbs
      * knocked off it or none.
      * 
      * @param map the map where the current {@code Actor} is.
@@ -34,8 +34,8 @@ public interface ZombieWorld {
     /**
      * In the zombie game, an {@code Actor} is unable to revive after being killed, 
      * unless...
-     * <p>
-     * Override this method to determine whether an {@code Actor} can be revived.
+     * 
+     * <p>Override this method to determine whether an {@code Actor} can be revived.
      * 
      * @return a default value of {@code false}.
      */
