@@ -3,6 +3,7 @@ package game;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Location;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -36,9 +37,11 @@ public class Corpse extends PortableItem {
      * Constructor of a Corpse object.
      *
      * @param actor the actor that died.
+     * @throws NullPointerException if {@code actor} references to null.
      */
     public Corpse(Actor actor) {
         super(actor.toString(), '%');
+        Objects.requireNonNull(actor);
         deadActor = actor;
         count = 0;
         revivalCount = (int)(5 + (Math.random() * 5));

@@ -106,17 +106,29 @@ public class Zombie extends ZombieActor {
     }
 
     /**
-     * Gets a zombie's available weapons and determines whether it is able to
-     * inflict damage while using the weapon of choice.
+     * Get the weapon this Actor is using.
+     *
+     * If the current Actor is carrying weapons, returns the first one in the
+     * inventory. Otherwise, returns the Actor's natural fighting equipment e.g.
+     * fists.
+     *
+     * <p>In the zombie game, the zombie will determine its chances of missing
+     * while fighting based on its choice of weapon used.
+     *
+     * @return a weapon if it is able to inflict damage using it, otherwise null.
      */
     @Override
     public Weapon getWeapon() {
         Weapon weapon = super.getWeapon();
-        if (weapon != null && weapon.verb().equalsIgnoreCase("bites")) {
+        if (weapon.verb().equalsIgnoreCase("bites")) {  // If Zombie uses bite
             if (rand.nextDouble() <= FAILED_BITE) {  // If Zombie misses its bite
                 weapon = null;
             } else {  // If Zombie successfully bite
                 super.heal(5);
+            }
+        } else {
+            if (rand.nextBoolean()) {  // If Zombie misses
+                weapon = null;
             }
         }
         return weapon;

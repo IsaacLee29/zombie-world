@@ -57,6 +57,7 @@ public class Limbs {
      * Add a limb.
      *
      * @param newLimb a {@code Limb} to be added.
+     * @throws NullPointerException if {@code newLimb} is a null reference.
      * @return true if and only if {@code Limb} added successfully.
      */
     public boolean addLimb(Limb newLimb) {
@@ -73,6 +74,7 @@ public class Limbs {
      * Remove a limb.
      *
      * @param aLimb a {@code Limb} to be removed.
+     * @throws NullPointerException if {@code aLimb} is a null reference.
      * @return true if and only if the {@code Limb} removed successfully.
      */
     public boolean removeLimb(Limb aLimb) {

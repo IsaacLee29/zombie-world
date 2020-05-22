@@ -15,6 +15,6 @@ public class ZombieClub extends WeaponItem {
 	 * Constructor
 	 */
 	public ZombieClub() {
-		super("ZombieClub", 'c', 30, "pok");
+		super("ZombieClub", 'c', 30, "pokes");
 	}
 }

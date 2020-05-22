@@ -25,8 +25,22 @@ public abstract class ZombieActor extends Actor {
 	 */
 	protected Random rand = new Random();
 	
+	/**
+	 * Constructor of a ZombieActor object.
+	 * 
+	 * @param name the name of the Actor
+	 * @param displayChar the character that will represent the Actor in the display
+	 * @param hitPoints the Actor's starting hit points
+	 * @param team the {@code ZombieCapability} of this zombie actor
+	 * @param zombieActor the {@code TypeOfZombieActor} this zombie actor is
+	 * @throws IllegalArgumentException if {@code hitPoints} is negative
+	 * @throws NullPointerException if {@code zombieActor} references to null
+	 */
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team, TypeOfZombieActor zombieActor) {
 		super(name, displayChar, hitPoints);
+		if (hitPoints < 0) {  // check for negative hitPoints
+			throw new IllegalArgumentException("Hitpoints cannot be negative.");
+		}
 		Objects.requireNonNull(zombieActor);  // check for null references
 		typeOfZombieActor = zombieActor;
 		addCapability(team);
@@ -43,25 +57,5 @@ public abstract class ZombieActor extends Actor {
 	@Override
 	public TypeOfZombieActor getTypeOfZombieActor() {
 		return this.typeOfZombieActor;
-	}
-
-	/**
-	 * Get the weapon this Actor is using.
-	 * 
-	 * If the current Actor is carrying weapons, returns the first one in the
-	 * inventory. Otherwise, returns the Actor's natural fighting equipment e.g.
-	 * fists.
-	 * 
-	 * <p>In the zombie game, the zombie actor will determine its chances of missing
-	 * while fighting.
-	 *
-	 * @return null if and only if it misses the target, otherwise its {@code Weapon}.
-	 */
-	@Override
-	public Weapon getWeapon() {
-		if (rand.nextBoolean()) {  // If Actor misses attack
-			return null;
-		}
-		return super.getWeapon();
 	}
 }

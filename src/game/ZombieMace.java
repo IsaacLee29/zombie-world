@@ -16,6 +16,6 @@ public class ZombieMace extends WeaponItem {
 	 * Constructor
 	 */
 	public ZombieMace() {
-		super("ZombieMace", 'm', 50, "piaks");
+		super("ZombieMace", 'm', 50, "smack");
 	}
 }

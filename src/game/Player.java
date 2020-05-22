@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Menu;
+import edu.monash.fit2099.engine.Weapon;
 
 /**
  * Class representing the Player.
@@ -62,5 +63,26 @@ public class Player extends Human {
 		}
 
 		return menu.showMenu(this, actions, display);
+	}
+	
+	/**
+	 * Get the weapon this Actor is using.
+	 *
+	 * If the current Actor is carrying weapons, returns the first one in the
+	 * inventory. Otherwise, returns the Actor's natural fighting equipment e.g.
+	 * fists.
+	 *
+	 * <p>In the zombie game, the player will determine its chances of missing
+	 * while fighting.
+	 *
+	 * @return null if and only if it misses the target, otherwise its {@code Weapon}.
+	 */
+	@Override
+	public Weapon getWeapon() {
+		Weapon weapon = super.getWeapon();
+		if (rand.nextBoolean()) {  // If player misses
+			weapon = null;
+		}
+		return weapon;
 	}
 }
