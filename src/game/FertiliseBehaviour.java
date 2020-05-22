@@ -5,17 +5,19 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 /**
- * A class of Fertilise Behaviour
- * 
- * The implementation of this class is to allow farmer to feritilise the Crop when he/she is 
- * standing on the Crop. Which it can increase the age of the Crop. So the Crop can ripe faster.
+ * A class of FertiliseBehaviour.
+ * <p>
+ * This class is to implements how the {@code Farmer} fertilise the Crop when the {@code Farmer} is standing on the {@code Crop}
+ * which is not ripe yet. 
+ * <p>
+ * It provides method to check whether the {@code Farmer} is standing on the Crop and method to execute the action. 
  * 
  * @author Hee Weng Sheng 
  *
  */
 public class FertiliseBehaviour extends Action implements Behaviour{
 	/**
-	 * The crop to be fertilise.
+	 * The {@code Crop} to be fertilise.
 	 */
 	private Crop crop;
 	/**
@@ -25,7 +27,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * If the Farmer is standing on the crop then the farming can fertilise the crop 
+	 * If the Farmer is standing on the {@code Crop} then the {@code Farmer} can fertilise the {@code Crop} 
 	 * which reduce the time to be ripen by 10.
 	 *
 	 * @param actor the Actor acting
@@ -34,7 +36,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 	 */
 	public Action getAction(Actor actor, GameMap map) {
 		destination = map.locationOf(actor);
-		if(destination.getGround().getDisplayChar() == 'C') {
+		if(destination.getGround().hasCapability(CropCapability.UNRIPE)) {
 			return this;
 		}
 		return null;
@@ -42,7 +44,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * Perform the FertiliseBehaviour action by fertilizing the crop where the actor is
+	 * Perform the FertiliseBehaviour action by fertilizing the {@code Crop} where the {@code Actor} is
 	 * standing on.
 	 *
 	 * @param actor The actor performing the action.
@@ -57,7 +59,7 @@ public class FertiliseBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * Returns a descriptive string when the Farmer fertilise the crop.
+	 * Returns a descriptive string when the {@code Actor} fertilise the {@code Crop}.
 	 * @param actor The actor performing the action.
 	 * @return the text we put on the menu
 	 */

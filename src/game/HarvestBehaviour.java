@@ -11,10 +11,12 @@ import edu.monash.fit2099.engine.Location;
 
 /**
  * A class of HarvestBehaviour. 
- * 
- * The implementation of this class is to allowed Farmer or player to harvest the ripe crop when 
- * they are standing on or beside the ripe Crop. When they harvest the crop, then i can turn into 
- * food which allows the player/human to consumed it.
+ * <p>
+ * This class is to implements how the {@code Farmer} and {@code Player} can harvest the ripe {@code Crop} for {@code Food} when they are
+ * standing on or next to it. 
+ * <p>
+ * It provides method to check whether who is standing on or next to the {@code Crop} which are ripe and a method to execute the action by
+ * harvesting the ripe {@code Crop} to get {@code Food}.
  * 
  * @author Hee Weng Sheng
  *
@@ -35,12 +37,14 @@ public class HarvestBehaviour extends Action implements Behaviour{
 	 * The actor will harvest the crop.
 	 */
 	public Action getAction(Actor actor, GameMap map) {	
-		if(map.locationOf(actor).getGround().getDisplayChar() == 'R') {
+		// check whether the actor is standing on a ripe Crop
+		if(map.locationOf(actor).getGround().hasCapability(CropCapability.RIPE)) {
 			return this;
 		}
+		// check whether the actor is standing next to a ripe Crop
 		for(Exit exits : map.locationOf(actor).getExits()) {
 			destination = exits.getDestination();
-			if (destination.getGround().getDisplayChar() == 'R') {
+			if (destination.getGround().hasCapability(CropCapability.RIPE)) {
 				return this;
 			}
 		}
@@ -49,21 +53,23 @@ public class HarvestBehaviour extends Action implements Behaviour{
 
 	@Override
 	/**
-	 * Perform the HarvestBehaviour action which harvest the crop on the Location the actor is
-	 * standing on or beside and create a Food object. The food will drop on the ground if the 
-	 * farmer harvested the crop. Whereas, the food will be added into the player inventory if the
-	 * player harvested the crop.
+	 * Perform the HarvestBehaviour action which harvest the {@code Crop} on the Location the {@code Actor} is
+	 * standing on or beside and create a {@code Food} object. The {@code Food} will drop on the {@code Ground} if the 
+	 * {@code Farmer} harvested the {@code Crop}. Whereas, the {@code Food} will be added into the {@code Player} inventory if the
+	 * {@code Player} harvested the {@code Crop}.
 	 *
 	 * @param actor The actor performing the action.
 	 * @param map The map the actor is on.
 	 * @return a description of what happened that can be displayed to the user.
 	 */
 	public String execute(Actor actor, GameMap map) {
+		// check the actor is a Farmer
 		if (actor.getDisplayChar() == 'F') {
 			map.at(destination.x(),destination.y()).setGround(new Dirt());
-			map.at(destination.x(), destination.y()).addItem(new Food("food", '=', true,10));
+			map.at(destination.x(), destination.y()).addItem(new Food("food", '=', true, 10));
 			return menuDescription(actor);
 		}
+		// check the actor is a Player
 		else if (actor.getDisplayChar() == '@') {
 			map.at(destination.x(),destination.y()).setGround(new Dirt());
 			actor.addItemToInventory(new Food("food" ,'=', true, 10));

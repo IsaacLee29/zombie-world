@@ -11,10 +11,12 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
 /**
- * A class of Farming Behaviour
- *  
- * The implementation of this class is to allowed Farmer to sow a crop when the Farmer is standing 
- * besides a dirt. 
+ * A class of FarmingBehaviour.
+ * <p>
+ * This class implements how the {@code Farmer} sow a crop when the {@code Farmer} is standing besides a {@code Dirt}.
+ * <p>
+ * This class provides methods to check whether the {@code Farmer} is standing besides a {@code Dirt} and methods to 
+ * plant a {@code Code}.
  *  
  * @author Hee Weng Sheng 
  *
@@ -22,7 +24,7 @@ import edu.monash.fit2099.engine.Location;
 
 public class FarmingBehaviour extends Action implements Behaviour {
 	/**
-	 * The location besides the actor
+	 * The location besides the {@code Actor} 
 	 */
 	private Location destination;
 	/**
@@ -44,6 +46,7 @@ public class FarmingBehaviour extends Action implements Behaviour {
 		for (Exit exit: map.locationOf(actor).getExits()) {
 			destination = exit.getDestination();
 			if (map.at(destination.x(), destination.y()).getDisplayChar() == '.') {
+				// check is the probability is within 33 % if yes then sow the crop. 
 				if(Math.random() <= 0.33) {
 					return this;
 				}
@@ -68,7 +71,7 @@ public class FarmingBehaviour extends Action implements Behaviour {
 
 	@Override
 	/**
-	 * Returns a descriptive string when the actor sow a crop.
+	 * Returns a descriptive string when the {@code Actor} sow a {@code Crop}.
 	 * @param actor The actor performing the action.
 	 * @return the text we put on the menu
 	 */
