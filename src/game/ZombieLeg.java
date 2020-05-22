@@ -4,11 +4,15 @@ import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.Weapon;
 
 /**
- * A Zombie's Leg.
- *
- * This class models a Zombie's leg, as a {@code Limb}, that can be used as a {@code Weapon}
- * when detached from the host Zombie. Provides methods to drop the {@code ZombieLeg} and get 
- * its damage and description when wielded as a simple club.
+ * A zombie's leg.
+ * <p>
+ * This class models a zombie's leg, as a {@code Limb}, that can be used as a {@code Weapon}
+ * when detached from the host zombie. 
+ * <p>
+ * Provides methods to drop the {@code ZombieLeg} and get its damage and description when 
+ * wielded as a simple club.
+ * <p>
+ * Use this class to create a zombie's leg.
  *
  * @author Isaac Lee Kian Min
  */
@@ -22,9 +26,9 @@ public class ZombieLeg extends Limb implements Weapon {
     }
 
     /**
-     * A copy constructor of a ZombieLeg.
+     * A copy constructor of a {@code ZombieLeg}.
      *
-     * @param newLeg the {@code ZombieLeg} to be copied.
+     * @param newArm the {@code ZombieLeg} to be copied.
      */
     private ZombieLeg(ZombieLeg newLeg) {
         super(newLeg.typeOfLimb, newLeg.displayChar, true);

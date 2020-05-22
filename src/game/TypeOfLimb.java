@@ -1,7 +1,8 @@
 package game;
 
 /**
- * This enum class seeks to define the type of {@code Limb} objects that exists in the ZombieWorld.
+ * This {@code enum} class defines the names of the different types of {@code Limb} objects 
+ * that exists in the zombie game.
  */
 public enum TypeOfLimb {
     ZOMBIE_ARM, ZOMBIE_LEG

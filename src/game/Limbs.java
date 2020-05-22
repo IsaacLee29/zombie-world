@@ -6,20 +6,22 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A Collection of Limb objects.
- *
- * A Limbs represents a collection of {@code Limb} objects that a particular Actor may have.
- * Provides methods to check how many limbs there are, adding a limb, removing a limb and getting
- * a copy of the collection of limbs.
- * 
- * Use this class if you want {@code Actors} in the ZombieWorld to have limbs.
+ * A Collection of {@code Limb} objects.
+ * <p>
+ * {@code Limbs} represents a collection of {@code Limb} objects that an {@code Actor} in 
+ * the zombie game may have.
+ * <p>
+ * Provides methods to check how many limbs there are, adding a limb, removing a limb and 
+ * getting a copy of the collection of limbs.
+ * <p>
+ * Use this class to model an {@code Actor} in the zombie game having limbs.
  *
  * @author Isaac Lee Kian Min
  */
 public class Limbs {
 
     /**
-     * Maximum number of limbs allowed.
+     * Maximum number of limbs.
      */
     private final int MAX_LIMBS;
 
@@ -29,21 +31,21 @@ public class Limbs {
     private List<Limb> limbs;
 
     /**
-     * Constructor
+     * Constructor of a {@code Limbs} object.
      *
      * @param maxLimbs a number indicating the maximum number of limbs.
      * @throws IllegalArgumentException if passed a negative {@code maxLimbs}.
      */
     public Limbs(int maxLimbs) {
         if (maxLimbs < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Cannot have negative amount of limbs");
         }
         MAX_LIMBS = maxLimbs;
         limbs = new ArrayList<>();
     }
 
     /**
-     * Gets an unmodifiable list of the collection of limbs.
+     * Get an unmodifiable list of the collection of limbs.
      *
      * @return an unmodifiable list of limbs.
      */
@@ -82,21 +84,9 @@ public class Limbs {
         }
         return retVal;
     }
-
+    
     /**
-     * Is there a specific type of limb?
-     *
-     * This method checks whether there still exists a specified {@code TypeOfLimb} in {@code Limbs}.
-     *
-     * @param typeOfLimb the {@code TypeOfLimb} to be checked.
-     * @return true if and only if the limb still exists.
-     */
-    public boolean noMoreType(TypeOfLimb typeOfLimb) {
-        return count(typeOfLimb) <= 0;
-    }
-
-    /**
-     * Counts the number of limbs that are a certain type.
+     * Counts the number of a certain type of limb in the collection of limbs.
      *
      * @param typeOfLimb {@code TypeOfLimb} to be counted.
      * @return an integer indicating the number of limbs that are {@code TypeOfLimb} type.
@@ -112,7 +102,21 @@ public class Limbs {
     }
 
     /**
-     * Gets the total number of {@code Limb} objects in this {@code Limbs}..
+     * Is there a specific type of limb?
+     * <p>
+     * This method checks whether the collection of limbs still contains a specific 
+     * {@code TypeOfLimb}
+     *
+     * @param typeOfLimb the {@code TypeOfLimb} to be checked.
+     * @return true if and only if the collection of limbs contains the specified 
+     * {@code TypeOfLimb}.
+     */
+    public boolean noMoreType(TypeOfLimb typeOfLimb) {
+        return count(typeOfLimb) <= 0;
+    }
+
+    /**
+     * Gets the total number of {@code Limb} objects in this {@code Limbs}.
      *
      * @return an integer value that indicates the total number of {@code Limb}.
      */

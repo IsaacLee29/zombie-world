@@ -41,13 +41,13 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage. ";
 
 		target.hurt(damage);
-		String knockedLimb = target.knockOffLimb(map);
+		String knockedLimb = target.knockOffLimb(map);  // If able to have limbs knocked off
 		if (knockedLimb != null) {
 			result += System.lineSeparator() + knockedLimb;
 		}
 
 		if (!target.isConscious()) {
-			Item corpse = new Corpse(target);
+			Item corpse = new Corpse(target);  // Create a Corpse of the target
 
 			map.locationOf(target).addItem(corpse);
 			

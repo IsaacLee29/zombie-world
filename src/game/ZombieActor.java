@@ -15,7 +15,7 @@ import java.util.Random;
 public abstract class ZombieActor extends Actor {
 
 	/**
-	 * An enum that represents the type of ZombieActor in the ZombieWorld.
+	 * Represents the type of ZombieActor in the zombie game.
 	 */
 	protected TypeOfZombieActor typeOfZombieActor;
 
@@ -44,11 +44,16 @@ public abstract class ZombieActor extends Actor {
 	}
 
 	/**
-	 * Overrides the getWeapon() method defined in Actor to include the chances of an Actor
-	 * in the ZombieWorld missing its target while fighting.
+	 * Get the weapon this Actor is using.
+	 * 
+	 * If the current Actor is carrying weapons, returns the first one in the
+	 * inventory. Otherwise, returns the Actor's natural fighting equipment e.g.
+	 * fists.
+	 * <p>
+	 * In the zombie game, the zombie actor will determine its chances of missing
+	 * while fighting.
 	 *
-	 * @return null - if {@code ZombieActor} misses target.
-	 * @return Weapon - if {@code ZombieActor} didn't miss target.
+	 * @return null if and only if it misses the target, otherwise its {@code Weapon}.
 	 */
 	@Override
 	public Weapon getWeapon() {

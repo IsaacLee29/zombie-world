@@ -4,19 +4,21 @@ import edu.monash.fit2099.engine.Item;
 
 /**
  * A Limb.
- *
- * This class provides a template to create objects that are essentially limbs.
- * In the ZombieWorld, a limb is considered a physical object. Provides methods to get the
- * type of limb, making a deep copy and description of the limb.
- * 
- * Use this class if you want to model a limb.
+ * <p>
+ * This {@code abstract} class provides a template to create objects that are a {@code Limb}. 
+ * In the zombie game, a {@code Limb} is considered a physical object. 
+ * <p>
+ * Provides methods to get the type of limb, making a deep copy and provide a description 
+ * of the {@code Limb}.
+ * <p>
+ * Use this class to model different types of limb.
  *
  * @author Isaac Lee Kian Min
  */
 public abstract class Limb extends Item {
 
     /**
-     * Determines what type of limb this is.
+     * Indicates the type of limb.
      */
     protected TypeOfLimb typeOfLimb;
 
@@ -42,11 +44,11 @@ public abstract class Limb extends Item {
     }
 
     /**
-     * Make a deep copy of the Limb object and pass it a {@code Limb} reference.
-     *
+     * A method to make a deep copy of the limb object and pass it a {@code Limb} reference.
+     * <p>
      * Implement this method within classes that inherit this class to prevent privacy leaks.
      *
-     * @return a copy of the Limb object.
+     * @return a copy of the {@code Limb} object.
      */
     public abstract Limb makeCopy();
 
@@ -57,6 +59,6 @@ public abstract class Limb extends Item {
      */
     @Override
     public String toString() {
-        return typeOfLimb.toString();
+        return this.getClass().getSimpleName();
     }
 }

@@ -4,11 +4,15 @@ import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.Weapon;
 
 /**
- * A Zombie's arm.
- *
- * This class models a Zombie's arm, as a {@code Limb}, that can be used as a {@code Weapon}
- * when detached from the host Zombie. Provides methods to drop the {@code ZombieArm} and get 
- * its damage and description when wielded as a simple club.
+ * A zombie's arm.
+ * <p>
+ * This class models a zombie's arm, as a {@code Limb}, that can be used as a {@code Weapon}
+ * when detached from the host zombie. 
+ * <p>
+ * Provides methods to drop the {@code ZombieArm} and get its damage and description when 
+ * wielded as a simple club.
+ * <p>
+ * Use this class to create a zombie's arm.
  *
  * @author Isaac Lee Kian Min
  */
@@ -22,7 +26,7 @@ public class ZombieArm extends Limb implements Weapon {
     }
 
     /**
-     * A copy constructor of a ZombieArm.
+     * A copy constructor of a {@code ZombieArm}.
      *
      * @param newArm the {@code ZombieArm} to be copied.
      */
