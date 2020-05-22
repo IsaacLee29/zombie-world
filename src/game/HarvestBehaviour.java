@@ -29,10 +29,6 @@ public class HarvestBehaviour extends Action implements Behaviour {
 	 * the location of the crop to be harvest
 	 */
 	private Location destination;
-	/**
-	 * A random number generator
-	 */
-	protected Random rand = new Random();
 
 	@Override
 	/**

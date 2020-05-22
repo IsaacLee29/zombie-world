@@ -27,10 +27,6 @@ public class FarmingBehaviour extends Action implements Behaviour {
 	 * The location besides the {@code Actor} 
 	 */
 	private Location destination;
-	/**
-	 * Random number generator
-	 */
-	protected Random rand = new Random();
 	
 	/**
 	 * It will get all the locations besides where the actor is standing on 
