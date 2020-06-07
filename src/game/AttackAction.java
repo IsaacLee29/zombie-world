@@ -18,7 +18,10 @@ public class AttackAction extends Action {
 	 * The Actor that is to be attacked
 	 */
 	protected Actor target;
-
+	/**
+	 * A counter that keep track of how many round the player aim the target
+	 */
+	private int sniperAimCounter; 
 	/**
 	 * Constructor.
 	 * 
@@ -28,6 +31,10 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
+	public AttackAction(Actor target, int sniperAimCounter) {
+		this.target = target;
+		this.sniperAimCounter = sniperAimCounter;
+	}
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
@@ -38,6 +45,14 @@ public class AttackAction extends Action {
 		}
 
 		int damage = weapon.damage();
+		
+		if (sniperAimCounter == 2) {
+			damage = damage * 2;
+		}
+		else if (sniperAimCounter >= 3) {
+			damage = 100;
+		}
+		
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage. ";
 
 		target.hurt(damage);

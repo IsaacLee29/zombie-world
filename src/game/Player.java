@@ -53,6 +53,15 @@ public class Player extends Human {
 			if (item.getDisplayChar() == 'a' || item.getDisplayChar() == 'l') {
 				actions.add(new CraftingWeaponAction(item));
 			}
+			if (item.hasCapability(RangeWeaponCapabilities.SNIPER_AIMING)) {
+				 // getting back the same aimAction to aim back the same person
+				if(lastAction.getClass() == AimAction.class) {
+					actions.add(lastAction);
+				}
+				else{
+					actions.add(new AimAction());
+				}
+			}
 		}
 
 		for (Behaviour behaviour : behaviours) {
@@ -61,9 +70,11 @@ public class Player extends Human {
 				actions.add(action);
 			}
 		}
-
+		
+		actions.add(new QuitAction());
 		return menu.showMenu(this, actions, display);
 	}
+	
 	
 	/**
 	 * Get the weapon this Actor is using.
@@ -85,4 +96,6 @@ public class Player extends Human {
 		}
 		return weapon;
 	}
+	
+	
 }
