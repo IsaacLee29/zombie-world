@@ -52,6 +52,7 @@ public class Player extends Human {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		boolean retValSniper = false, retValSniperAmmunition = false, retValShotgun = false, retValShotgunAmmunition=false;
 		Item sniperAmmunition = null, shotgunAmmunition = null;
+		Weapon sniper = null, shotgun = null;
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		// check whether the player inventory consist of zombie's arm or leg
@@ -78,8 +79,10 @@ public class Player extends Human {
 //					}
 //				}
 //			}
+			
 			if (item.hasCapability(RangeWeaponCapabilities.SNIPER_AIMING)) {
 				retValSniper = true;
+				sniper = item.asWeapon();
 			}
 			if (item instanceof SniperAmmunitionBox && item.getAmount()>0) {
 				retValSniperAmmunition = true;
@@ -88,6 +91,7 @@ public class Player extends Human {
 			
 			if (item.hasCapability(RangeWeaponCapabilities.SHOTGUN_AIMING)) {
 				retValShotgun = true;
+				shotgun = item.asWeapon();
 			}
 			if(item instanceof ShotgunAmmunitionBox && item.getAmount()>0) {
 				retValShotgunAmmunition = true;
@@ -103,13 +107,13 @@ public class Player extends Human {
 				actions.add(lastAction);
 			}
 			else {
-				actions.add(new SniperAimAction(sniperAmmunition));
+				actions.add(new SniperAimAction(sniperAmmunition, sniper));
 			}
 			lastHitPoints = currentHitPoints;
 		}
 		
 		if(retValShotgun && retValShotgunAmmunition) {
-			actions.add(new ShotgunAimAction(shotgunAmmunition));
+			actions.add(new ShotgunAimAction(shotgunAmmunition, shotgun));
 		}
 		
 		for (Behaviour behaviour : behaviours) {

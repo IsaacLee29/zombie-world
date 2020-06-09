@@ -14,6 +14,7 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.Weapon;
 
 public class SniperAimAction extends Action{
 	
@@ -27,13 +28,15 @@ public class SniperAimAction extends Action{
 //	private Item weapon;
 	private static final double PROB_WITHOUT_AIMING = 0.75; 
 	private static final double PROB_WITH_ONE_ROUND_AIMING = 0.90;
+	private Weapon sniper;
 	private Display display = new Display();
 
 //	public AimAction(Item weapon, TypeOfZombieActor typeOfZombie) {
-	public SniperAimAction(Item sniperAmmunition) {
+	public SniperAimAction(Item sniperAmmunition, Weapon sniper) {
 //		this.weapon = weapon;
 		this.aimCounter = 0;
 		this.sniperAmmunition = sniperAmmunition;
+		this.sniper = sniper;
 	}
 	
 	@Override
@@ -73,8 +76,9 @@ public class SniperAimAction extends Action{
 			retVal = true;
 		}
 		if (retVal == true) {
-			AttackAction attack = new SniperAttackAction(targetedZombie, aimCounter);
+			AttackAction attack = new SniperAttackAction(targetedZombie, aimCounter, sniper);
 			str = attack.execute(actor, map);
+			return str;
 		}
 		return actor + "missed " + targetedZombie + ".";
 	}

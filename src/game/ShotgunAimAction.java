@@ -10,14 +10,17 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.Weapon;
 
 public class ShotgunAimAction extends Action{
 	
 	private Item shotgunAmmunition;
 	private Display display;
+	private Weapon shotgun;
 	
-	public ShotgunAimAction(Item shotgunAmmunition) {
+	public ShotgunAimAction(Item shotgunAmmunition, Weapon shotgun) {
 		this.shotgunAmmunition = shotgunAmmunition;
+		this.shotgun = shotgun;
 	}
 
 	@Override
