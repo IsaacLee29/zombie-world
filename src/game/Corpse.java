@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Location;
+import game.RiseFromDead;
 
 import java.util.Objects;
 import java.util.Random;
@@ -34,6 +35,11 @@ public class Corpse extends PortableItem {
     private int count, revivalCount;
 
     /**
+     * A random number generator.
+     */
+    private Random rand = new Random();
+
+    /**
      * Constructor of a Corpse object.
      *
      * @param actor the actor that died.
@@ -44,7 +50,7 @@ public class Corpse extends PortableItem {
         Objects.requireNonNull(actor);
         deadActor = actor;
         count = 0;
-        revivalCount = (int)(5 + (Math.random() * 5));
+        revivalCount = 5 + rand.nextInt(5);
     }
     
     /**
@@ -66,29 +72,36 @@ public class Corpse extends PortableItem {
      */
     @Override
     public void tick(Location currentLocation, Actor actor) {
-        if (deadActor.ableToRevive() && count == revivalCount) {
+        Location destination = currentLocation;
+        if (deadActor.hasCapability(RiseFromDead.ZOMBIE) && count == revivalCount) {
         	
         	// If another Actor is carrying the corpse or standing on the corpse
             if (currentLocation.containsAnActor()) {
-                Random rand = new Random();
-                int random = rand.nextInt(currentLocation.getExits().size());
-                
+                destination = getRandomExitLocation(currentLocation);
+
                 // Find the exit that has no physical obstacles and Actors on it
-                while (currentLocation.getExits().get(random).getDestination().containsAnActor()
-                		|| !currentLocation.getExits().get(random).getDestination().getGround().
-                		canActorEnter(deadActor)) {
-                	random = rand.nextInt(currentLocation.getExits().size());
+                while (destination.containsAnActor() || !destination.getGround().canActorEnter(deadActor)) {
+                    destination = getRandomExitLocation(currentLocation);
                 }
-                
-                currentLocation.getExits().get(random).getDestination()
-                        .addActor(new Zombie(deadActor.toString()));
+
                 currentLocation.getActor().removeItemFromInventory(this);  // If Actor holding corpse
-                currentLocation.removeItem(this); // If corpse on the ground
+                currentLocation.removeItem(this); // If an actor is standing on the corpse
             } else {
-                currentLocation.removeItem(this);
-                currentLocation.addActor(new Zombie(deadActor.toString()));
+                destination.removeItem(this);
             }
+            destination.addActor(new Zombie("Zombie" + deadActor.toString()));
         }
         count++;
+    }
+
+    /**
+     * Gets a random exit based on its current location.
+     *
+     * @param currentLocation - the current location of this corpse.
+     * @return an exit location.
+     */
+    private Location getRandomExitLocation(Location currentLocation) {
+        int random = rand.nextInt(currentLocation.getExits().size());
+        return currentLocation.getExits().get(random).getDestination();
     }
 }

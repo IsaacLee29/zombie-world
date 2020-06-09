@@ -40,4 +40,6 @@ public interface ZombieWorld {
      * @return a default value of {@code false}.
      */
     default boolean ableToRevive() { return false; }
+    
+    default boolean vanishing() { return false; }
 }
