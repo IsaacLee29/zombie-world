@@ -20,6 +20,10 @@ public class VanishCharacters {
         justVanished = new ArrayList<>();
     }
 
+    public boolean contains(Actor actor) {
+        return actors.contains(actor);
+    }
+
     public void addVanishedActors(Actor actor, GameMap map) {
         actors.add(actor);
         maps.add(map);

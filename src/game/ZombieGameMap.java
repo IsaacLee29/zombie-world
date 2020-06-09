@@ -26,4 +26,12 @@ public class ZombieGameMap extends GameMap {
         }
         super.removeActor(actor);
     }
+
+    @Override
+    public boolean contains(Actor actor) {
+        if (actor.getTypeOfZombieActor() == TypeOfZombieActor.MAMBOMARIE)
+            return vanishedActors.contains(actor);
+        else
+            return super.contains(actor);
+    }
 }
