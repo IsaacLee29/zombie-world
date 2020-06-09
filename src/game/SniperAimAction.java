@@ -15,7 +15,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
-public class AimAction extends Action{
+public class SniperAimAction extends Action{
 	
 	private int aimCounter;
 	private static final int MAX_RANGE = 40;
@@ -23,15 +23,17 @@ public class AimAction extends Action{
 	private ArrayList<Actor> zombies = new ArrayList<>();
 	private Actor targetedZombie, tempZombie;
 	private boolean fired;
+	private Item sniperAmmunition;
 //	private Item weapon;
 	private static final double PROB_WITHOUT_AIMING = 0.75; 
 	private static final double PROB_WITH_ONE_ROUND_AIMING = 0.90;
 	private Display display = new Display();
 
 //	public AimAction(Item weapon, TypeOfZombieActor typeOfZombie) {
-	public AimAction() {
+	public SniperAimAction(Item sniperAmmunition) {
 //		this.weapon = weapon;
 		this.aimCounter = 0;
+		this.sniperAmmunition = sniperAmmunition;
 	}
 	
 	@Override
@@ -47,6 +49,7 @@ public class AimAction extends Action{
 		if (fired == true) {
 			String retVal = shoot(actor, map);
 			aimCounter = 0;
+			sniperAmmunition.changeAmmount(-1);
 			return retVal;
 		}
 		return actor + " aimed " + targetedZombie +" for the " + aimCounter + " turns.";
@@ -55,6 +58,7 @@ public class AimAction extends Action{
 
 	private String shoot(Actor actor, GameMap map) {
 		boolean retVal = false;
+		String str = "";
 		if (aimCounter == 1) {
 			if (Math.random() <= PROB_WITHOUT_AIMING) {
 				retVal = true;
@@ -69,8 +73,8 @@ public class AimAction extends Action{
 			retVal = true;
 		}
 		if (retVal == true) {
-			AttackAction attack = new AttackAction(targetedZombie, aimCounter);
-			return attack.execute(actor, map);
+			AttackAction attack = new SniperAttackAction(targetedZombie, aimCounter);
+			str = attack.execute(actor, map);
 		}
 		return actor + "missed " + targetedZombie + ".";
 	}
@@ -190,8 +194,10 @@ public class AimAction extends Action{
 	}
 	
 	private boolean containsTarget(Location here) {
+//		return (here.getActor() != null &&
+//				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE || TypeOfZombieActor.MAMBOMARIE);
 		return (here.getActor() != null &&
-				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE || TypeOfZombieActor.MAMBOMARIE);
+				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE);
 	}
 	
 }

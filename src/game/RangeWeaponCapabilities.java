@@ -1,5 +1,5 @@
 package game;
 
 public enum RangeWeaponCapabilities {
-	SNIPER_AIMING, SNIPER_NOT_AIMING
+	SNIPER_AIMING, SHOTGUN_AIMING
 }

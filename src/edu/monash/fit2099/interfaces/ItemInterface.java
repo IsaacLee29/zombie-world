@@ -5,5 +5,11 @@ package edu.monash.fit2099.interfaces;
  * or downcasting references in the game.   
  */
 public interface ItemInterface {
-
+	
+	default int getAmount() {
+		return 0;
+	}
+	
+	default void changeAmmount(int amount) {
+	}
 }

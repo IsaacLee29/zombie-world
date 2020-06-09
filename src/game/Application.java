@@ -55,7 +55,8 @@ public class Application {
 		gameMap.at(42, 15).addItem(new ZombieArm());
 //		gameMap.at(50, 18).addActor(new Zombie("Mortalis"));
 		gameMap.at(42, 15).addItem(new Corpse(new Human("HI")));
-
+		gameMap.at(42, 15).addItem(new Sniper());
+		gameMap.at(42, 15).addItem(new SniperAmmunitionBox("SniperAmmunitionBox", '^', true));
 		gameMap.at(43, 14).addActor(new Farmer("Halo"));
 		
 	    // Place some random humans
