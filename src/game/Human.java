@@ -27,6 +27,7 @@ public class Human extends ZombieActor {
 	 */
 	public Human(String name) {
 		super(name, 'H', 50, ZombieCapability.ALIVE, TypeOfZombieActor.HUMAN);
+		addCapability(RiseFromDead.ZOMBIE);
 	}
 
 	/**
@@ -39,6 +40,7 @@ public class Human extends ZombieActor {
 	 */
 	protected Human(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints, ZombieCapability.ALIVE, TypeOfZombieActor.HUMAN);
+		addCapability(RiseFromDead.ZOMBIE);
 	}
 
 	@Override
@@ -69,15 +71,5 @@ public class Human extends ZombieActor {
 		}
 		actions1.add(behaviour.getAction(this, map));
 		return actions1.get(rand.nextInt(actions.size()));
-	}
-
-	/**
-	 * Since Humans can only be killed by {@code Zombie}, they can be revived.
-	 * 
-	 * @return true.
-	 */
-	@Override
-	public boolean ableToRevive() {
-		return true;
 	}
 }

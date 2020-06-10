@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.monash.fit2099.engine.*;
-import game.vanishcapabilities.ZombieWorld;
 
 /**
  * The main class for the zombie apocalypse game.
  *
+ * @author Isaac Lee Kian Min.
  */
 public class ApplicationDemo {
 
@@ -82,7 +82,7 @@ public class ApplicationDemo {
 
         // Create and add Player
         Actor player = new Player("Player", '@', 100);
-        world.addPlayer(player, compoundMap.at(1, 0));
+        world.addPlayer(player, compoundMap.at(42, 14));
 
         // Add objects into compoundMap
         Vehicle compoundMapVehicle = new Vehicle();

@@ -1,15 +1,23 @@
 package game;
 
 import edu.monash.fit2099.engine.*;
-import game.vanishcapabilities.VanishAbleActors;
+import game.vanishcapabilities.VanishAbleActor;
 import game.vanishcapabilities.VanishActorAction;
 
-public class MamboMarie extends ZombieActor implements VanishAbleActors {
+/**
+ * Mambo Marie.
+ *
+ * This class is used to simulate the character Mambo Marie.
+ *
+ * <p>Mambo Marie is able to create new zombies every 10 play turns and will vanish
+ * after 30 play turns. Mambo Marie will respawn until it is defeated.
+ */
+public class MamboMarie extends ZombieActor implements VanishAbleActor {
 
     /**
      * Probability of MamboMarie not reappearing (i.e. remain vanished).
      */
-    public static final double VANISH_PROBABILITY = 0.4;  //0.95
+    public static final double VANISH_PROBABILITY = 0.95;  //0.95
 
     /**
      * Determines whether MamboMarie used her last action to vanish.
@@ -49,10 +57,10 @@ public class MamboMarie extends ZombieActor implements VanishAbleActors {
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         playTurns ++;
-        if (playTurns % 30 == 1 && playTurns > 30) {
-//            if (true) {
-                justVanished = true;
-                return new VanishActorAction(this);
+        if (playTurns > 30) {
+            playTurns = 0;  // reset play turns upon disappearing
+            justVanished = true;
+            return new VanishActorAction(this);
         }
         for (Behaviour behaviour : behaviours) {
             Action action = behaviour.getAction(this, map);
@@ -78,12 +86,24 @@ public class MamboMarie extends ZombieActor implements VanishAbleActors {
     }
 
     @Override
-    public VanishAbleActors getVanishAble() {
+    public VanishAbleActor getVanishAble() {
         return this;
     }
 
+    /**
+     * A chanting behaviour for Mambo Marie.
+     *
+     * <p>The chanting behaviour causes Mambo Marie to create 5 new {@code Zombie}.
+     */
     private class ChantBehaviour implements Behaviour {
 
+        /**
+         * This method returns a {@code CreateZombieAction} for every 10 turns Mambo Marie plays.
+         *
+         * @param actor the Actor acting
+         * @param map the GameMap containing the Actor
+         * @return a {@code CreateZombieAction} for every 10 turns Mambo Marie plays, otherwise false.
+         */
         @Override
         public Action getAction(Actor actor, GameMap map) {
             if (playTurns % 10 == 0) {
