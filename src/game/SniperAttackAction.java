@@ -36,7 +36,7 @@ public class SniperAttackAction extends AttackAction{
 		
 		String result = actor + " " + sniper.verb() + " " + target + " for " + damage + " damage. ";
 		
-		result = this.checkAfterAttack(damage, map, result);
+		result = this.checkAfterAttack(damage, map, result, target);
 		
 		return result;
 	}

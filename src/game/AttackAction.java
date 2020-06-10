@@ -27,6 +27,8 @@ public class AttackAction extends Action {
 	public AttackAction(Actor target) {
 		this.target = target;
 	}
+	
+	public AttackAction() {}
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
@@ -41,12 +43,12 @@ public class AttackAction extends Action {
 		
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage. ";
 
-		result = checkAfterAttack(damage, map, result);
+		result = checkAfterAttack(damage, map, result, target);
 
 		return result;
 	}
 
-	protected String checkAfterAttack(int damage, GameMap map, String result) {
+	protected String checkAfterAttack(int damage, GameMap map, String result, Actor target) {
 		target.hurt(damage);
 		String knockedLimb = target.knockOffLimb(map);  // If able to have limbs knocked off
 		if (knockedLimb != null) {

@@ -20,9 +20,9 @@ public class ShotgunAmmunitionBox extends AmmunitionBox{
 	 * @param ammunitionAmount the ammount of ammunition contains in a box
 	 * 
 	 */
-	public ShotgunAmmunitionBox(String name, char displayChar, boolean portable, int ammunitionAmount) {
+	public ShotgunAmmunitionBox(String name, char displayChar, boolean portable) {
 		// Maybe i can raise an exeception to not allow negative amount of ammunition. 
-		super(name, displayChar, portable, ammunitionAmount);
+		super(name, displayChar, portable, 10);
 	}
 
 }
