@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.monash.fit2099.engine.*;
+import game.brewery.Brewery;
+import game.brewery.HealingPotion;
+import game.brewery.PoisonPotion;
+import game.brewery.PotionFactory;
 
 /**
  * The main class for the zombie apocalypse game.
@@ -79,12 +83,18 @@ public class ApplicationDemo {
         // Add GameMaps into World
         world.addGameMap(compoundMap);
         world.addGameMap(townMap);
+        
+        // Create Brewery
+        PotionFactory potionFactory = new PotionFactory(new HealingPotion(), new PoisonPotion());
+        Brewery brewery = new Brewery(potionFactory);
+        compoundMap.at(42, 15).setGround(brewery);
 
         // Create and add Player
         Actor player = new Player("Player", '@', 100);
         Actor doctor = new Healer("Doctor");
-        world.addPlayer(player, compoundMap.at(30, 14));
+        world.addPlayer(player, compoundMap.at(42, 14));
         world.addPlayer(doctor, compoundMap.at(28, 12));
+        
         // Add objects into compoundMap
         Vehicle compoundMapVehicle = new Vehicle();
         compoundMapVehicle.addAction(new MoveActorAction(townMap.at(0,0), "TownMap"));
@@ -98,11 +108,14 @@ public class ApplicationDemo {
         // Add Mambo Marie into compoundMap
         compoundMap.at(0, 0).addActor(new MamboMarie());
         Actor wengsheng = new Human("WengSheng", 'H', 100);
-        world.addPlayer(wengsheng, compoundMap.at(48, 1));
-        compoundMap.at(30, 14).addItem(new Sniper());
-        compoundMap.at(30, 14).addItem(new SniperAmmunitionBox("SniperAmmunitionBox", '^', true));
-//        // Add Human to compoundMap
+        
+        // Add Sniper into townMap
+        townMap.at(30, 14).addItem(new Sniper());
+        townMap.at(30, 14).addItem(new SniperAmmunitionBox("SniperAmmunitionBox", '^', true));
+        
+        // Add Human to compoundMap
 //        compoundMap.at(31, 20).addActor(new Human("Testing"));
+        world.addPlayer(wengsheng, compoundMap.at(48, 1));
 //
 //        // Add Zombie to compoundMap
 //        compoundMap.at(30, 20).addActor(new Zombie("Mortalis"));

@@ -2,10 +2,10 @@ package game.vanishcapabilities;
 
 import edu.monash.fit2099.engine.*;
 import game.Dirt;
+import game.RandomLocationGenerator;
 import game.TypeOfZombieActor;
 
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * A ground that houses {@code VanishAbleActor}.
@@ -24,6 +24,11 @@ public class VanishGround extends Dirt {
      * Map {@code VanishAbleActors} to corresponding {@code VanishActorAction}.
      */
     private HashMap<VanishAbleActor, Action> vanishAbleActorActionHashMap;
+
+    /**
+     * A random location generator.
+     */
+    private RandomLocationGenerator randomLocationGenerator = new RandomLocationGenerator();
 
     /**
      * Constructor.
@@ -87,44 +92,10 @@ public class VanishGround extends Dirt {
             if (action != null) {
                 vanishAbleActorActionHashMap.put(actor, action);
             } else {
-                randomLocation(actor, location).addActor(actor.getActor());
-//                location.map().at(0, 0).addActor(actor.getActor());
+                randomLocationGenerator.getRandomLocation(actor.getActor(), location.map())
+                        .addActor(actor.getActor());
                 vanishAbleActorActionHashMap.remove(actor);
             }
         }
-    }
-
-    /**
-     * This method is used to determine a random location on the {@code GameMap} specified
-     * by the {@code location} passed-in.
-     *
-     * @param actor actor to be randomly placed.
-     * @param location the location of the Ground.
-     * @return a random {@code Location}.
-     */
-    private Location randomLocation(VanishAbleActor actor, Location location) {
-        int xs, ys;
-        Location newLocation;
-        Random rand = new Random();
-
-        xs = location.map().getXRange().max();
-        ys = location.map().getYRange().max();
-        newLocation = location.map().at(rand.nextInt(xs), rand.nextInt(ys));
-
-        if (containsObjects(actor, newLocation)) {
-            return randomLocation(actor, location);
-        }
-        return newLocation;
-    }
-
-    /**
-     * This method determines whether a location already has obstacles on it.
-     *
-     * @param actor actor to be randomly placed.
-     * @param location a random location.
-     * @return true if and only if there are obstacles at the given location.
-     */
-    private boolean containsObjects(VanishAbleActor actor, Location location) {
-        return location.containsAnActor() || location.canActorEnter(actor.getActor());
     }
 }
