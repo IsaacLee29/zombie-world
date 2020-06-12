@@ -1,10 +1,7 @@
 package game;
 
-import java.util.ArrayList;
-
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
@@ -12,7 +9,6 @@ import edu.monash.fit2099.engine.Location;
 
 public class Healer extends Human{
 
-	private ArrayList<Actor> patients = new ArrayList<>();
 	
 	private final static int HEALER_MAX_RANGE = 5;
 	private Behaviour[]behaviours = {

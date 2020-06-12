@@ -3,8 +3,6 @@ package game;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Weapon;
-
 import java.util.Objects;
 import java.util.Random;
 
