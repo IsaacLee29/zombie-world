@@ -1,14 +1,19 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.List;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
+import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.Location;
 
 /**
  * Class representing an ordinary human.
@@ -18,6 +23,17 @@ import edu.monash.fit2099.engine.Item;
  *
  */
 public class Human extends ZombieActor {
+	
+	/**
+	 * The zombies within the sniper range
+	 */
+	protected ArrayList<Actor> target = new ArrayList<>();
+	/**
+	 * Hashset of location that have checked
+	 */
+	protected HashSet<Location> visitedLocations = new HashSet<Location>();
+
+	
 	private Behaviour behaviour = new WanderBehaviour();
 
 	/**
@@ -71,5 +87,76 @@ public class Human extends ZombieActor {
 		}
 		actions1.add(behaviour.getAction(this, map));
 		return actions1.get(rand.nextInt(actions.size()));
+	}
+	
+	protected void target(Actor actor, Location here, int MAX_RANGE) {
+		visitedLocations.clear();
+		target.clear();
+		ArrayList<Location> now = new ArrayList<Location>();
+		
+		now.add(here);
+		
+		ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
+		layer.add(now);
+
+		for (int i = 0; i < MAX_RANGE; i++) {
+			layer = getNextLayer(actor, layer);
+			search(layer);
+//			Location there = search(layer);
+//			if (there != null)
+//				return there.getMoveAction(actor, "towards a " + targetName, null);
+		}
+
+	}
+	/**
+	 * Search for all possible location with in the range of the sniper
+	 * @param actor the player
+	 * @param layer	ArrayList of ArrayList of location 
+	 * @return
+	 */
+	protected ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
+		ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
+
+		for (ArrayList<Location> path : layer) {
+			List<Exit> exits = new ArrayList<Exit>(path.get(path.size() - 1).getExits());
+			Collections.shuffle(exits);
+			for (Exit exit : path.get(path.size() - 1).getExits()) {
+				Location destination = exit.getDestination();
+				if (!destination.getGround().canActorEnter(actor) || visitedLocations.contains(destination))
+					continue;
+				visitedLocations.add(destination);
+				ArrayList<Location> newPath = new ArrayList<Location>(path);
+				newPath.add(destination);
+				nextLayer.add(newPath);
+			}
+		}
+		return nextLayer;
+	}
+	
+	/**
+	 * Get the possible location in the range 
+	 * @param layer Location to be search
+	 */
+	protected void search(ArrayList<ArrayList<Location>> layer) {
+		for (ArrayList<Location> path : layer) {
+			Location location = path.get(path.size() - 1);
+			// Getting the target
+			if (containsTarget(location)) {
+				if(!target.contains(location.getActor())) {
+					target.add(location.getActor());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Check whether the current location contains actor of type zombie or MamboMarie
+	 * @param here the location to be check 
+	 * @return
+	 */
+	protected boolean containsTarget(Location here) {
+		return (here.getActor() != null &&
+				(here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE || 
+				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.MAMBOMARIE));
 	}
 }

@@ -27,18 +27,20 @@ public class Player extends Human {
 	 * To keep track of the player hitPoints last turn and current turn
 	 */
 	private int lastHitPoints, currentHitPoints;
-	/**
-	 * The zombies within the sniper range
-	 */
-	private ArrayList<Actor> zombies = new ArrayList<>();
-	/**
-	 * Hashset of location that have checked
-	 */
-	private HashSet<Location> visitedLocations = new HashSet<Location>();
-	/**
-	 * The range of the sniper
-	 */
-	private static final int MAX_RANGE = 40;
+//	/**
+//	 * The zombies within the sniper range
+//	 */
+//	private ArrayList<Actor> zombies = new ArrayList<>();
+//	/**
+//	 * Hashset of location that have checked
+//	 */
+//	private HashSet<Location> visitedLocations = new HashSet<Location>();
+//	/**
+//	 * The range of the sniper
+//	 */
+//	private static final int MAX_RANGE = 40;
+	
+	private static final int SNIPER_MAX_RANGE = 40;
 	/**
 	 * Constructor.
 	 *
@@ -99,15 +101,15 @@ public class Player extends Human {
 			// updating the player hitPoints 
 			currentHitPoints = this.hitPoints;
 			// check current map contains zombie within the range 
-			target(this, map.locationOf(this));
+			target(this, map.locationOf(this), SNIPER_MAX_RANGE);
 			// If there's zombies 
-			if (zombies.size() > 0) {
+			if (target.size() > 0) {
 				// Check player lastAction and the hitPoints with the last turns
 				if (lastAction instanceof SniperAimAction && currentHitPoints == lastHitPoints) {
 					actions.add(lastAction);
 				}
 				else {
-					actions.add(new SniperAimAction(sniperAmmunition, sniper, zombies));
+					actions.add(new SniperAimAction(sniperAmmunition, sniper, target));
 				}
 				lastHitPoints = currentHitPoints;
 			}
@@ -124,7 +126,7 @@ public class Player extends Human {
 			}
 		}
 		
-		actions.add(new QuitAction());
+//		actions.add(new QuitAction());
 		return menu.showMenu(this, actions, display);
 	}
 	
@@ -133,76 +135,76 @@ public class Player extends Human {
 	 * @param actor the player
 	 * @param here location of the player
 	 */
-	public void target(Actor actor, Location here) {
-		visitedLocations.clear();
-		zombies.clear();
-		ArrayList<Location> now = new ArrayList<Location>();
-		
-		now.add(here);
-		
-		ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
-		layer.add(now);
-
-		for (int i = 0; i < MAX_RANGE; i++) {
-			layer = getNextLayer(actor, layer);
-			search(layer);
-//			Location there = search(layer);
-//			if (there != null)
-//				return there.getMoveAction(actor, "towards a " + targetName, null);
-		}
-
-	}
-	/**
-	 * Search for all possible location with in the range of the sniper
-	 * @param actor the player
-	 * @param layer	ArrayList of ArrayList of location 
-	 * @return
-	 */
-	private ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
-		ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
-
-		for (ArrayList<Location> path : layer) {
-			List<Exit> exits = new ArrayList<Exit>(path.get(path.size() - 1).getExits());
-			Collections.shuffle(exits);
-			for (Exit exit : path.get(path.size() - 1).getExits()) {
-				Location destination = exit.getDestination();
-				if (!destination.getGround().canActorEnter(actor) || visitedLocations.contains(destination))
-					continue;
-				visitedLocations.add(destination);
-				ArrayList<Location> newPath = new ArrayList<Location>(path);
-				newPath.add(destination);
-				nextLayer.add(newPath);
-			}
-		}
-		return nextLayer;
-	}
-	
-	/**
-	 * Get the possible location in the range 
-	 * @param layer Location to be search
-	 */
-	private void search(ArrayList<ArrayList<Location>> layer) {
-		for (ArrayList<Location> path : layer) {
-			Location location = path.get(path.size() - 1);
-			// Getting the target
-			if (containsTarget(location)) {
-				if(!zombies.contains(location.getActor())) {
-					zombies.add(location.getActor());
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Check whether the current location contains actor of type zombie or MamboMarie
-	 * @param here the location to be check 
-	 * @return
-	 */
-	private boolean containsTarget(Location here) {
-		return (here.getActor() != null &&
-				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE || 
-				here.getActor().getTypeOfZombieActor()==TypeOfZombieActor.MAMBOMARIE);
-	}
+//	public void target(Actor actor, Location here) {
+//		visitedLocations.clear();
+//		zombies.clear();
+//		ArrayList<Location> now = new ArrayList<Location>();
+//		
+//		now.add(here);
+//		
+//		ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
+//		layer.add(now);
+//
+//		for (int i = 0; i < MAX_RANGE; i++) {
+//			layer = getNextLayer(actor, layer);
+//			search(layer);
+////			Location there = search(layer);
+////			if (there != null)
+////				return there.getMoveAction(actor, "towards a " + targetName, null);
+//		}
+//
+//	}
+//	/**
+//	 * Search for all possible location with in the range of the sniper
+//	 * @param actor the player
+//	 * @param layer	ArrayList of ArrayList of location 
+//	 * @return
+//	 */
+//	private ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
+//		ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
+//
+//		for (ArrayList<Location> path : layer) {
+//			List<Exit> exits = new ArrayList<Exit>(path.get(path.size() - 1).getExits());
+//			Collections.shuffle(exits);
+//			for (Exit exit : path.get(path.size() - 1).getExits()) {
+//				Location destination = exit.getDestination();
+//				if (!destination.getGround().canActorEnter(actor) || visitedLocations.contains(destination))
+//					continue;
+//				visitedLocations.add(destination);
+//				ArrayList<Location> newPath = new ArrayList<Location>(path);
+//				newPath.add(destination);
+//				nextLayer.add(newPath);
+//			}
+//		}
+//		return nextLayer;
+//	}
+//	
+//	/**
+//	 * Get the possible location in the range 
+//	 * @param layer Location to be search
+//	 */
+//	private void search(ArrayList<ArrayList<Location>> layer) {
+//		for (ArrayList<Location> path : layer) {
+//			Location location = path.get(path.size() - 1);
+//			// Getting the target
+//			if (containsTarget(location)) {
+//				if(!zombies.contains(location.getActor())) {
+//					zombies.add(location.getActor());
+//				}
+//			}
+//		}
+//	}
+//	
+//	/**
+//	 * Check whether the current location contains actor of type zombie or MamboMarie
+//	 * @param here the location to be check 
+//	 * @return
+//	 */
+//	private boolean containsTarget(Location here) {
+//		return (here.getActor() != null &&
+//				(here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE || 
+//				here.getActor().getTypeOfZombieActor() == TypeOfZombieActor.MAMBOMARIE));
+//	}
 	
 	/**
 	 * Get the weapon this Actor is using.

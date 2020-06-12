@@ -11,26 +11,46 @@ import edu.monash.fit2099.engine.Item;
  * ammunition left in the box and description to show how manys ammunition left in the 
  * box. 
  * 
- * @author wengsheng
+ * @author Hee Weng Sheng                 
  *
  */
 public abstract class AmmunitionBox extends Item{
 	
+	/**
+	 * amount of ammunition in the box
+	 */
 	protected int ammunitionAmount;
-
+	
+	/**
+	 * Construct of AmmunitionBox object
+	 * @param name name of ammunition box 
+	 * @param displayChar character to be display for the ammunition box
+	 * @param portable is ammunition box portable
+	 * @param ammunitionAmount the amount of ammunition in the box
+	 */
 	public AmmunitionBox(String name, char displayChar, boolean portable, int ammunitionAmount) {
 		super(name, displayChar, portable);
 		this.ammunitionAmount = ammunitionAmount;
 	}
 	
+	/**
+	 * Getting the amount of ammunition 
+	 */
 	public int getAmount() {
 		return this.ammunitionAmount;
 	}
 	
+	/**
+	 * change teh amount of ammunition
+	 * @param amount the amount to be change
+	 */
 	public void changeAmmount(int amount) {
 		this.ammunitionAmount += amount;
 	}
 	
+	/**
+	 * Description of the amount of ammunition left
+	 */
 	public String toString() {
 		return name + " amount: " + getAmount();
 	}

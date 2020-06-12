@@ -1,22 +1,42 @@
 package game;
 
+import java.util.HashMap;
+
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.World;
 
 public class ZombieWorld extends World {
-
+	
+	boolean quitingGame = false;
+	
     public ZombieWorld(Display display) {
         super(display);
     }
 
+    protected void processActorTurn(Actor actor) {
+    	if (actor.getTypeOfZombieActor() == TypeOfZombieActor.PLAYER) {
+    		if (!quitGame()) {
+    			super.processActorTurn(actor);
+    		}
+    	}
+    	else {
+    		super.processActorTurn(actor);
+    	}
+    }
+    
     @Override
     protected boolean stillRunning() {
+    	
     	boolean humanInGame = false;
     	boolean zombieInGame = false;
     	boolean playerInGame = false;
     	boolean mamboMarieInGame = false;
+    	
+    	if (quitingGame) {
+    		return false;
+    	}
     	
     	// if player is still alive
     	if (super.stillRunning()) {
@@ -36,11 +56,11 @@ public class ZombieWorld extends World {
     	
     	// If either player is dead or all human is dead
     	if (!humanInGame || !playerInGame) {
-    		display.println("Player Win");
+    		display.println("Player Lose");
     	}
     	
-    	if (!zombieInGame && mamboMarieInGame) {
-    		display.println("Player Lose");
+    	if (!zombieInGame && !mamboMarieInGame) {
+    		display.println("Player Win");
     	}
     	
         return (playerInGame && humanInGame) && (zombieInGame || mamboMarieInGame);
@@ -66,5 +86,21 @@ public class ZombieWorld extends World {
             }
         }
         return retVal;
+    }
+    
+    private boolean quitGame() {
+    	HashMap <Character, Boolean> charMapToBoolean = new HashMap<>();
+    	display.println("a: Quit Game" );
+    	display.println("b: Continue");
+    	
+    	charMapToBoolean.put('a', true);
+    	charMapToBoolean.put('b', false);
+    	char key;
+		do {
+			key = display.readChar();
+		}
+		while (!charMapToBoolean.containsKey(key));
+		quitingGame = charMapToBoolean.get(key);
+		return quitingGame;  	
     }
 }

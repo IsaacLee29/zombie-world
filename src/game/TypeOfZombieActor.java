@@ -5,5 +5,5 @@ package game;
  * exists in the zombie game.
  */
 public enum TypeOfZombieActor {
-    ZOMBIE, HUMAN, PLAYER, FARMER, MAMBOMARIE
+    ZOMBIE, HUMAN, PLAYER, FARMER, MAMBOMARIE, HEALER
 }

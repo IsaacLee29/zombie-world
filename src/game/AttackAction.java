@@ -48,6 +48,14 @@ public class AttackAction extends Action {
 		return result;
 	}
 
+	/**
+	 * Check whether the actor lose any limbs or killed after damage
+	 * @param damage damage from the actor
+	 * @param map	Current game map
+	 * @param result string of the previous result
+	 * @param target the target to be damage
+	 * @return
+	 */
 	protected String checkAfterAttack(int damage, GameMap map, String result, Actor target) {
 		target.hurt(damage);
 		String knockedLimb = target.knockOffLimb(map);  // If able to have limbs knocked off

@@ -82,8 +82,9 @@ public class ApplicationDemo {
 
         // Create and add Player
         Actor player = new Player("Player", '@', 100);
-        world.addPlayer(player, compoundMap.at(42, 14));
-
+        Actor doctor = new Healer("Doctor");
+        world.addPlayer(player, compoundMap.at(30, 14));
+        world.addPlayer(doctor, compoundMap.at(28, 12));
         // Add objects into compoundMap
         Vehicle compoundMapVehicle = new Vehicle();
         compoundMapVehicle.addAction(new MoveActorAction(townMap.at(0,0), "TownMap"));
@@ -96,7 +97,10 @@ public class ApplicationDemo {
 
         // Add Mambo Marie into compoundMap
         compoundMap.at(0, 0).addActor(new MamboMarie());
-
+        Actor wengsheng = new Human("WengSheng", 'H', 100);
+        world.addPlayer(wengsheng, compoundMap.at(48, 1));
+        compoundMap.at(30, 14).addItem(new Sniper());
+        compoundMap.at(30, 14).addItem(new SniperAmmunitionBox("SniperAmmunitionBox", '^', true));
 //        // Add Human to compoundMap
 //        compoundMap.at(31, 20).addActor(new Human("Testing"));
 //

@@ -13,23 +13,64 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Weapon;
 
+/**
+ * Shotgun Aim Action.
+ * 
+ * This class is used to prompt user for a direction to shoot.
+ * 
+ * <p> Shotgun is able to shoot in different direction. Eg, North, North East, East ...
+ * 
+ * <p> Then it will fire out the bullet in that direction where its range is 3 squares.
+ * 
+ * <p> An example how shotgun works. If user choose to fire north, it can hit anything in the 3 squares 
+ * north of the shooter, norteast of the shooter, northwest of the shooter, or anything in between. 
+ * 
+ *
+ * @author Hee Weng Sheng
+ *
+ */
+
 public class ShotgunAimAction extends Action{
-	
+	/**
+	 * The ammunition box used in this shotgun
+	 */
 	private Item shotgunAmmunition;
+	/**
+	 * A display object to display text in console.
+	 */
 	private Display display = new Display();
+	/**
+	 * The shotgun that we are using.
+	 */
 	private Weapon shotgun;
-	private ShotgunAttackAction attack;
 	
+	/**
+	 * Constructor of shotgun aim action.
+	 * @param shotgunAmmunition the ammunition box we used
+	 * @param shotgun the shotgun that we are using 
+	 */
 	public ShotgunAimAction(Item shotgunAmmunition, Weapon shotgun) {
 		this.shotgunAmmunition = shotgunAmmunition;
 		this.shotgun = shotgun;
 	}
-
+	
+	/**
+	 * It will prompt user for input to select a direction to fired. 
+	 * 
+	 * <p> After choosing a direction, then it will compute the area that will be fired with bullets
+	 * 
+	 * <p> Then the user will fire it.
+	 * 
+	 * @param actor actor that is shooting
+	 * @param map map that the actor is currently on 
+	 * @return A description of the action.  
+	 *
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		Exit direction = submenu(actor, map);
 		ArrayList<Location> locations = computeAreaOfEffect(direction, map);
-		attack = new ShotgunAttackAction(locations, shotgun);
+		ShotgunAttackAction attack = new ShotgunAttackAction(locations, shotgun);
 		String retVal = attack.execute(actor, map);
 		this.shotgunAmmunition.changeAmmount(-1);
 		return retVal;
