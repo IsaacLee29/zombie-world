@@ -8,6 +8,8 @@ import edu.monash.fit2099.engine.*;
  * This class models after a potion master and his shop. The potion master is a wealthy man
  * and is a master brewer of potions. He decides to freely give out potion, but be aware, 
  * not all potions are beneficial...
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class Brewery extends Ground {
 

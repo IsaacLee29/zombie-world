@@ -8,6 +8,8 @@ import java.util.Random;
  * A factory for making potions.
  *
  * This class is used as a factory to brew (i.e. create) different types of potions.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class PotionFactory {
 

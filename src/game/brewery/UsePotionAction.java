@@ -7,6 +7,8 @@ import game.Corpse;
  * A special action to use potions.
  *
  * This class is allows actors to use the potion they have.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class UsePotionAction extends Action {
 

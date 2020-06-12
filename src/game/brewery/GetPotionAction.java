@@ -6,6 +6,8 @@ import edu.monash.fit2099.engine.*;
  * A special action to get a potion.
  *
  * This class is used to allow actors get potions from the {@code Brewery}.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class GetPotionAction extends Action {
 

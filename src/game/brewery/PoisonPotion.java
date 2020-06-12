@@ -4,6 +4,8 @@ import edu.monash.fit2099.engine.Actor;
 
 /**
  * A Poison Potion.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class PoisonPotion extends Potion {
 

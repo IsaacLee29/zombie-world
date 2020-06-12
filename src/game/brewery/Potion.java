@@ -12,6 +12,8 @@ import java.util.List;
  * A Potion.
  *
  * This class is used as an abstraction to create new potions.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public abstract class Potion extends Item {
 

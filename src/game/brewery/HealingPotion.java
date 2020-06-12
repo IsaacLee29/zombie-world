@@ -4,6 +4,8 @@ import edu.monash.fit2099.engine.Actor;
 
 /**
  * A Healing Potion.
+ * 
+ * @author Isaac Lee Kian Min.
  */
 public class HealingPotion extends Potion {
 
