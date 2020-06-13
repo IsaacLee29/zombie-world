@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A Potion.
  *
- * This class is used as an abstraction to create new potions.
+ * <p>This class is used as an abstraction to create new potions.
  * 
  * @author Isaac Lee Kian Min.
  */
@@ -29,9 +29,8 @@ public abstract class Potion extends Item {
     }
 
     /**
-     * This class creates adds a {@code UsePotionAction} to it's allowable actions.
-     *
-     * <p>This allows actor's to use this potion's abilities.
+     * This class creates and adds a {@code UsePotionAction} to it's allowable actions.
+     * This allows actor's to use this potion's abilities.
      *
      * @return an unmodifiable list of actions.
      */
@@ -44,7 +43,7 @@ public abstract class Potion extends Item {
     }
 
     /**
-     * This method implements the effects of the potion towards the actor that has it.
+     * This method implements the effects of the potion towards the actor when used.
      *
      * @param actor an actor that has this potion.
      * @return a description of the effects of this potion on the actor.

@@ -21,6 +21,9 @@ public class HealingPotion extends Potion {
         super("Healing Potion", 'h');
     }
 
+    /**
+     * This method causes the actor that uses this potion to gain health.
+     */
     @Override
     public String usePotion(Actor actor) {
         actor.heal(HEAL);

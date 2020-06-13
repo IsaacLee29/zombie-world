@@ -135,7 +135,7 @@ public class Application {
         // Add objects
         Vehicle townMapVehicle = new Vehicle();
         townMapVehicle.addAction(new MoveActorAction(compoundMap.at(42,15), "CompoundMap"));
-        townMap.at(50,15).addItem(townMapVehicle);
+        townMap.at(50,16).addItem(townMapVehicle);
 
         // Add Sniper and Shotgun
         townMap.at(42, 15).addItem(new Sniper());

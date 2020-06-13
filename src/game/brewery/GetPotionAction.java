@@ -5,14 +5,14 @@ import edu.monash.fit2099.engine.*;
 /**
  * A special action to get a potion.
  *
- * This class is used to allow actors get potions from the {@code Brewery}.
+ * <p>This class is used to allow actors get potions from the {@code Brewery}.
  * 
  * @author Isaac Lee Kian Min.
  */
 public class GetPotionAction extends Action {
 
     /**
-     * A potion.
+     * A potion to get.
      */
     private Item potion;
 
@@ -26,11 +26,11 @@ public class GetPotionAction extends Action {
     }
 
     /**
-     * This method adds the potion into the actor's inventory.
+     * This method executes the aciton of adding a potion into an actor's inventory.
      *
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return
+     * @return a description of getting a potion.
      */
     @Override
     public String execute(Actor actor, GameMap map) {

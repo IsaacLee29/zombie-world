@@ -21,6 +21,9 @@ public class PoisonPotion extends Potion {
         super("Posion Potion", 'p');
     }
 
+    /**
+     * This method causes the actor that uses this potion to lose health.
+     */
     @Override
     public String usePotion(Actor actor) {
         actor.hurt(POISON);
