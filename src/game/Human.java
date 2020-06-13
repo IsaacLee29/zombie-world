@@ -88,7 +88,7 @@ public class Human extends ZombieActor {
 		return actions1.get(rand.nextInt(actions.size()));
 	}
 	
-	protected void target(Actor actor, Location here, int MAX_RANGE) {
+	protected void target(Actor actor, Location here, int range) {
 		visitedLocations.clear();
 		target.clear();
 		ArrayList<Location> now = new ArrayList<Location>();
@@ -98,7 +98,7 @@ public class Human extends ZombieActor {
 		ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
 		layer.add(now);
 
-		for (int i = 0; i < MAX_RANGE; i++) {
+		for (int i = 0; i < range; i++) {
 			layer = getNextLayer(actor, layer);
 			search(layer);
 //			Location there = search(layer);

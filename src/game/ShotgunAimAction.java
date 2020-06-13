@@ -25,7 +25,7 @@ import edu.monash.fit2099.engine.Weapon;
  * <p> An example how shotgun works. If user choose to fire north, it can hit anything in the 3 squares 
  * north of the shooter, norteast of the shooter, northwest of the shooter, or anything in between. 
  * 
- *
+ *<p> Use this class when the user want to fire with a shotgun. 
  * @author Hee Weng Sheng
  *
  */
@@ -75,13 +75,20 @@ public class ShotgunAimAction extends Action{
 		this.shotgunAmmunition.changeAmmount(-1);
 		return retVal;
 	}
-
+	
 	@Override
 	public String menuDescription(Actor actor) {
 		
 		return actor + " uses shotgun.";
 	}
 	
+	/**
+	 * Display a submenu to the user and prompt the user for the direction the user want to shoot at. 
+	 * 
+	 * @param actor actor that are performing this action
+	 * @param map the map the current user is on
+	 * @return the direction the user want to shoot at. 
+	 */
 	public Exit submenu(Actor actor, GameMap map) {
 		ArrayList<Character> freeChars = new ArrayList<>();
 		HashMap <Character, Exit> keyToExitMap = new HashMap<>();
@@ -107,6 +114,13 @@ public class ShotgunAimAction extends Action{
 		return keyToExitMap.get(key);
 	}
 	
+	/**
+	 * To get the locations of the bullets that will be fired. 
+	 * 
+	 * @param direction the direction that the user want to shoot at
+	 * @param map the map that action is going to perform on
+	 * @return
+	 */
 	private ArrayList<Location> computeAreaOfEffect(Exit direction, GameMap map) {
 		ArrayList<Location> location = new ArrayList<>();
 		Location startingLocation = direction.getDestination();

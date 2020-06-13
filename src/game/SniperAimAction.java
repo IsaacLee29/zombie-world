@@ -10,17 +10,31 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 
+/**
+ * Sniper Aim Action.
+ * 
+ * <p> This class is used to allow the user to aim at the target the user wanted. Then it allow the user to fire or continueing aiming. 
+ * 
+ * <p> The probability of hitting the target and the damage dealt increase when the user spend more time in aiming. 
+ * 
+ * <p> This class also provides a submenu that prompt user for the target the user want to aim and a submenu that prompt user whether the user 
+ * want to fire. 
+ * 
+ * <p> Use this class when the user wants to shoot a zombie/ mambo marie with a sniper. 
+ * 
+ * @author wengsheng
+ *
+ */
+
 public class SniperAimAction extends Action{
 	
 	private int aimCounter;
 	private ArrayList<Actor> zombies = new ArrayList<>();
-	private Actor targetedZombie, tempZombie;
-	private boolean fired;
+	private Actor targetedZombie;
 	private Item sniperAmmunition;
 	private static final double PROB_WITHOUT_AIMING = 0.75; 
 	private static final double PROB_WITH_ONE_ROUND_AIMING = 0.90;
 	private Weapon sniper;
-	private AttackAction attack;
 	private Display display = new Display();
 
 //	public AimAction(Item weapon, TypeOfZombieActor typeOfZombie) {
@@ -35,6 +49,8 @@ public class SniperAimAction extends Action{
 	@Override
 	public String execute(Actor actor, GameMap map) {
 //		target(actor, map.locationOf(actor));
+		boolean fired;
+		Actor tempZombie;
 		tempZombie = aimSubmenu();
 		if (tempZombie != targetedZombie) {
 			aimCounter = 0;
@@ -69,7 +85,7 @@ public class SniperAimAction extends Action{
 			retVal = true;
 		}
 		if (retVal == true) {
-			attack = new SniperAttackAction(targetedZombie, aimCounter, sniper);
+			SniperAttackAction attack = new SniperAttackAction(targetedZombie, aimCounter, sniper);
 			str = attack.execute(actor, map);
 			return str;
 		}

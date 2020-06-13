@@ -23,7 +23,7 @@ public class Crop extends Ground{
 	 */
 	private int age = 0;
 	/**
-	 * Default constructor to create a default {@Crop}
+	 * Default constructor to create a default {@code Crop}
 	 */
 	public Crop() {
 		super ('C');

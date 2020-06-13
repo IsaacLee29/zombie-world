@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.World;
 
 public class ZombieWorld extends World {
 	
-	boolean quitingGame = false;
+	private boolean quitingGame = false;
 	
     public ZombieWorld(Display display) {
         super(display);
@@ -43,11 +43,11 @@ public class ZombieWorld extends World {
     		playerInGame = true;
     		for (Actor actor: actorLocations) {
     			if(actor.getTypeOfZombieActor() == TypeOfZombieActor.HUMAN 
-    					|| actor.getTypeOfZombieActor() == TypeOfZombieActor.FARMER) {
+    				|| actor.getTypeOfZombieActor() == TypeOfZombieActor.FARMER) {
     				humanInGame = true;
     			}
     			if (actor.getTypeOfZombieActor() == TypeOfZombieActor.ZOMBIE 
-    					|| actor.getTypeOfZombieActor() == TypeOfZombieActor.MAMBOMARIE) {
+    				|| actor.getTypeOfZombieActor() == TypeOfZombieActor.MAMBOMARIE) {
     				zombieInGame = true;
     			}  					
     		}

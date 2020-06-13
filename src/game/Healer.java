@@ -7,14 +7,35 @@ import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * Healer.
+ * 
+ * This class is used to stimulate the Healer characteristics.
+ * 
+ * <p> Healer is able to heal the actor of type {@code Human} or {@code Farmer} or {@code Player}.
+ * 
+ * <p> It will wander around the map when there are no actor for the healer to heal.
+ * @author Hee Weng Sheng
+ *
+ */
 public class Healer extends Human{
 
+	/**
+	 * Healer healing range
+	 */
+	private final static int HEALER_MAX_RANGE = 3;
 	
-	private final static int HEALER_MAX_RANGE = 5;
+	/**
+	 * Behaviours of the healer
+	 */
 	private Behaviour[]behaviours = {
 			new WanderBehaviour()
 	};
 	
+	/**
+	 * Constructor of a healer.
+	 * @param name the name of the healer.
+	 */
 	public Healer(String name) {
 		super(name, 'h', 100);
 		this.typeOfZombieActor = TypeOfZombieActor.HEALER;
@@ -22,9 +43,10 @@ public class Healer extends Human{
 	
 	@Override
 	/**
-	 * Select an action based on the {@code Behaviour} the {@code Farmer} has. It
-	 * get the {@code Farmer} {@code Behaviour} {@code Action} with
-	 * Behaviour.getAction()
+	 * If the healer surrounding have actor of {@code Human} or {@code Farmer} or {@code Player}
+	 * then it will return Heal Action.
+	 * 
+	 * Else it will wander around.
 	 * 
 	 * @param actions    collection of possible Actions for this Actor
 	 * @param lastAction The Action this Actor took last turn. Can do interesting
@@ -53,6 +75,9 @@ public class Healer extends Human{
 		return new DoNothingAction();
 	}
 	
+	/**
+	 * To check whether the actor is not type of {@code Zombie} or {@code MamboMarie}
+	 */
 	@Override
 	protected boolean containsTarget(Location here) {
 		return (here.getActor() != null &&

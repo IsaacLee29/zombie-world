@@ -17,7 +17,6 @@ public class ShotgunAmmunitionBox extends AmmunitionBox{
 	 * @param name name of the Shotgun's ammunition box
 	 * @param displayChar displayed character for the shotgun's ammunition box
 	 * @param portable is shotgun's ammunition box portable
-	 * @param ammunitionAmount the ammount of ammunition contains in a box
 	 * 
 	 */
 	public ShotgunAmmunitionBox(String name, char displayChar, boolean portable) {
