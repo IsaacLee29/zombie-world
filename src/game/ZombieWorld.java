@@ -7,36 +7,15 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.World;
 
-/**
- * A Zombie Apocalyptic Word.
- * 
- * <p>This class extends the existing {@code World} class to implement other checks
- * and behaviours.
- * 
- * @author Isaac Lee
- */
 public class ZombieWorld extends World {
 	
-	/**
-	 * Does the player want to quit the game?
-	 */
 	boolean quitingGame = false;
 	
-    /**
-     * Constructor.
-     * 
-     * @param display the Display that will display this World.
-     */
-	public ZombieWorld(Display display) {
+    public ZombieWorld(Display display) {
         super(display);
     }
 
-    /**
-     * This method checks whether the player wants to quit the game on top of
-     * processing the actor's play turn.
-     */
-	@Override
-	protected void processActorTurn(Actor actor) {
+    protected void processActorTurn(Actor actor) {
     	if (actor.getTypeOfZombieActor() == TypeOfZombieActor.PLAYER) {
     		if (!quitGame()) {
     			super.processActorTurn(actor);
@@ -47,12 +26,7 @@ public class ZombieWorld extends World {
     	}
     }
     
-    /**
-     * This method checks certain conditions to determine the current state of the
-     * game (i.e. check whether specific actors are alive) on top of checking whether 
-     * the player is still alive.
-     */
-	@Override
+    @Override
     protected boolean stillRunning() {
     	
     	boolean humanInGame = false;
@@ -92,11 +66,7 @@ public class ZombieWorld extends World {
         return (playerInGame && humanInGame) && (zombieInGame || mamboMarieInGame);
     }
 
-    /**
-     * This method is used to check whether {@code MamboMarie} is still alive.
-     * @return
-     */
-	private boolean checkForMamboMarie() {
+    private boolean checkForMamboMarie() {
         boolean retVal = false;
 
         // Checks if MamboMarie is on the game map
@@ -118,13 +88,7 @@ public class ZombieWorld extends World {
         return retVal;
     }
     
-    /**
-     * This method is used as a menu to prompt the player on whether it wants
-     * to quit the game.
-     * 
-     * @return true if and only if it wants to quit the game, otherwise false.
-     */
-	private boolean quitGame() {
+    private boolean quitGame() {
     	HashMap <Character, Boolean> charMapToBoolean = new HashMap<>();
     	display.println("a: Quit Game" );
     	display.println("b: Continue");
