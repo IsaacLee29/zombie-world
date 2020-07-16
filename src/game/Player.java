@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Menu;
 import edu.monash.fit2099.engine.Weapon;
+import game.farming.HarvestBehaviour;
+import game.guns.*;
 
 /**
  * Class representing the Player.

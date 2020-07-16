@@ -13,6 +13,7 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
+import game.farming.ConsumeAction;
 
 /**
  * Class representing an ordinary human.

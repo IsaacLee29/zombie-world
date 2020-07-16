@@ -1,8 +1,8 @@
 package game;
 
 import edu.monash.fit2099.engine.*;
-import game.vanishcapabilities.VanishAbleActor;
-import game.vanishcapabilities.VanishActorAction;
+import game.vanishing.VanishAbleActor;
+import game.vanishing.VanishActorAction;
 
 /**
  * Mambo Marie.

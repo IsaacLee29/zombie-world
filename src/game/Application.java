@@ -8,6 +8,12 @@ import game.brewery.Brewery;
 import game.brewery.HealingPotion;
 import game.brewery.PoisonPotion;
 import game.brewery.PotionFactory;
+import game.farming.Farmer;
+import game.guns.Shotgun;
+import game.guns.ShotgunAmmunitionBox;
+import game.guns.Sniper;
+import game.guns.SniperAmmunitionBox;
+import game.zombies.Zombie;
 
 /**
  * The main class for the zombie apocalypse game.

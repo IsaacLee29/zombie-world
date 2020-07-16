@@ -2,7 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Location;
-import game.RiseFromDead;
+import game.zombies.Zombie;
 
 import java.util.Objects;
 import java.util.Random;
