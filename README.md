@@ -9,3 +9,7 @@ This is a rogue-like gaming programme written in Java that runs on the terminal.
 2. Run `javac src/game/Application.java` to compile the programme
 3. Run `java src/game/Application.java` to play
 4. Follow the instruction on the terminal while playing
+
+## Authors
+1. Hee Weng Sheng
+2. Isaac Lee
